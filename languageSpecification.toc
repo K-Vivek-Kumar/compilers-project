@@ -1,0 +1,20 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Motivation}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Goals}{2}{}%
+\contentsline {section}{\numberline {2}Data types}{2}{}%
+\contentsline {section}{\numberline {3}Operations}{2}{}%
+\contentsline {section}{\numberline {4}Statements}{2}{}%
+\contentsline {subsection}{\numberline {4.1}Comments}{2}{}%
+\contentsline {subsection}{\numberline {4.2}Declaration Statements}{2}{}%
+\contentsline {subsection}{\numberline {4.3}Operational Statements}{2}{}%
+\contentsline {subsection}{\numberline {4.4}Functions}{2}{}%
+\contentsline {subsection}{\numberline {4.5}Built-In Functions}{2}{}%
+\contentsline {section}{\numberline {5}Lexical Stage}{2}{}%
+\contentsline {subsection}{\numberline {5.1}Reserved Keywords}{2}{}%
+\contentsline {subsection}{\numberline {5.2}Punctuations}{2}{}%
+\contentsline {subsection}{\numberline {5.3}Identifiers}{2}{}%
+\contentsline {section}{\numberline {6}Syntax Stage}{2}{}%
+\contentsline {subsection}{\numberline {6.1}Sample Programs}{2}{}%
+\contentsline {subsection}{\numberline {6.2}Correct vs Wrong}{2}{}%
+\contentsline {section}{\numberline {7}Uniqueness}{2}{}%
+\contentsline {section}{\numberline {8}Future Possibilities}{2}{}%
