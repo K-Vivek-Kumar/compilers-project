@@ -238,20 +238,95 @@ FOLDER <identifier>;
 FOLDER f2;
 \end{verbatim}
 \end{enumerate}
-\subsection{Operational Statements}
+\subsection{Main Function}
+In the second part of the language program, we are implementing the operations on various files, hence there should be a start statement for this. We have declared a function known as \texttt{svas}, which shall be translated as the \texttt{main} function as in C-language.
+
+For example:
+\begin{verbatim}
+$$ This is section 1. $$
+Folder:
+    File1
+    Folder1:
+        File2
+        Folder2:
+    Folder3:
+        File3
+%%
+$$ This is section 2. $$
+function svas = {
+    number a;
+    FILE vivek;
+    vivek = open("1.txt");
+    a = vivek.find("Vivek");
+}
+\end{verbatim}
 \subsection{Functions}
-\subsection{Built-In Functions}
+\subsubsection{Function Declaration}
+\begin{verbatim}
+function <identifier> = <location_of_file>{
+    ...
+    <various operations>;
+    ...
+}
+\end{verbatim}
+
+\subsubsection{Function Call}
+\begin{verbatim}
+fun function_name;
+\end{verbatim}
+
+\subsubsection{Example Code}
+\begin{verbatim}
+CS21BTECH11026:
+    TPY:
+        1.txt
+        2.txt
+    TY:
+       1.txt
+%%
+function myfunction = CS21BTECH11026/TY/{
+    FILE myfile = open("1.txt");
+    number k = myfile.find("word1");
+    number i = myfile.replace("word1", "word2");
+}
+
+function svas = {
+  fun myfunction;
+}
+\end{verbatim}
 
 \section{Lexical Stage}
 \subsection{Reserved Keywords}
 \subsection{Punctuations}
 \subsection{Identifiers}
 
-\section{Syntax Stage}
+\section{Syntax}
 \subsection{Sample Programs}
 \subsection{Correct vs Wrong}
 
-\section{Uniqueness}
-\section{Future Possibilities}
+\section{Advantages}
+The FILEO Language offers several advantages due to its unique design:
+
+\begin{itemize}
+    \item \textbf{User-Friendly Syntax:} FILEO prioritizes a user-friendly experience, making the language easy to learn and work with.
+
+    \item \textbf{Optimized Operations:} Our compiler is designed to optimize each file operation, ensuring efficient execution.
+
+\end{itemize}
+
+\section{Challenges}
+Despite its advantages, FILEO may encounter certain challenges, including:
+
+\begin{itemize}
+    \item \textbf{Efficient Folder Structure Development:} Defining folder structures with tab-spaces and file names can be challenging during development.
+
+    \item \textbf{Complex Single-Line Operations:} The flexibility of performing multiple operations in a single line may pose challenges in terms of readability and usability.
+
+    \item \textbf{Completeness Considerations:} Issues related to file open/close management, such as inappropriate file openings or forgetting to close files, need to be carefully addressed.
+
+\end{itemize}
+
+\section{Conclusion}
+Providing an overview of the language has been a valuable exercise in understanding the compiler's inner workings and the language's constraints. We are committed to implementing as many features as possible from this document. Please note that the features outlined are subject to refinement and further development.
 
 \end{document}
