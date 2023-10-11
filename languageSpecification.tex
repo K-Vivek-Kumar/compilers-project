@@ -57,15 +57,187 @@
 
 
 \section{Introduction}
+This document introduces our project, which focuses on developing a Domain Specific Language (DSL) and overview of its associated compiler as part of the final course project. The DSL is designed to address specific needs within a particular domain or problem space. The compiler is the core component responsible for translating DSL code into executable instructions.
 
-\subsection{Motivation}
+\section{Motivation}
+
+In our search for a new Domain-Specific Language (DSL), we aimed to find an innovative solution to a recurring problem.
+
+\subsection{Problem Identification}
+
+Throughout five semesters of our academic journey, we noticed the challenge of submitting assignments in a specific folder structure that's easy for computer evaluation. To address this, we want to create a language that efficiently generates the required folder structures. This will benefit all students, ensuring uniformity in structure with a single shared code.
+
+\subsection{Expanding the Idea}
+
+Recognizing the need for such a DSL, we decided to add more file operations for user convenience. We also plan to handle file creation differences in Linux and Windows, providing a single program for both systems for easy use and standardization.
+
 \subsection{Goals}
+Our DSL program aims to offer the following capabilities:
+
+\begin{enumerate}
+  \item Efficiently create folder structures.
+  \item Perform various file operations, such as finding, renaming, replacing, emptying, and deleting.
+  \item Provide a straightforward and easy-to-understand language syntax.
+\end{enumerate}
+
 \section{Data types}
+Data types can be broadly categorized into two main groups: primitive data types and non-primitive data types. We are using only primitive data type.
+
+\begin{table}[h]
+\centering
+\caption{Data type Table}
+\label{tab:Datatypes}
+\begin{tabular}{ c c c }
+\hline
+Types & Type of Datatype  \\
+\hline
+string & primitive \\
+number & primitive \\
+FILE & primitive \\
+FOLDER &primitive\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Data Type Selection}
+In the design and development of our domain-specific language (FILEO Language) for file operations, we have carefully selected specific data types to represent different aspects of our language's domain. The choice of these data types is driven by the functional requirements. Below, we provide justification for the selection of each data type:
+
+\subsubsection{String}
+String datatypes are used for file names in our FILEO Language
+
+\subsubsection{Number}
+The "number" data type is for return type of various operations. 
+
+\subsubsection{FILE}
+File Handling: The "FILE" data type is selected to represent files references within our FILEO Language. This is crucial for the core functionality of reading, writing, and manipulating files in the FILEO Language designed for file operations.
+
+\subsubsection{FOLDER}
+The "FOLDER" data type is chosen to facilitate directory and folder management.
+
 \section{Operations}
+\begin{table}[h!]
+  \centering
+  \caption{Operations}
+  \label{tab:Operations}
+  \begin{tabular}{|c|c|c|}
+  \hline
+  Special keywords & Action  \\
+  \hline
+  find & find the word   \\
+  replace & replace all the word1 with word2  \\
+  rename & renames the file \\
+  empty & empty the file content\\
+  write & the content of string in the file\\
+  copy & copy the content of file \\
+  delete & delete the file\\
+  \hline
+  \end{tabular}
+  \end{table}
+
+\subsection{\texttt{.find("word to find"):}}
+
+This command is used to search for a specified word within the file's content.
+\subsection{\texttt{.replace("word1","word2"):}}
+
+This command replaces all instances of "word1" with "word2" throughout the file's content.
+\subsection{\texttt{.rename("newname"):}}
+
+The .rename method is used to change the name of the file.
+\subsection{\texttt{.empty():}}
+
+This method is employed to remove all content from the file, effectively emptying it.
+\subsection{\texttt{.write(string):}}
+
+This method to write new content into the file.
+\subsection{\texttt{.copy content(file):}}
+
+This method facilitates copying the content of another file into the current file.
+\subsection{\texttt{.delete():}}
+
+This method is employed to permanently remove the file.
 
 \section{Statements}
+Within the DSL, numerous statements play essential roles in its operations. In the following subsections, we introduce each of these statements and their specific functions.
+
 \subsection{Comments}
+Comments play a vital role in any programming language, offering a valuable way to provide program visitors with an overview of the program's purpose and functionality. In our DSL, we've incorporated the concept of comments, allowing for clear program documentation enclosed within double dollar signs (\$\$). A sample program snippet is presented below:
+
+\subsubsection{Single-Line Comment}
+\begin{verbatim}
+...
+
+$$ This is a single-line comment. $$
+
+...
+\end{verbatim}
+
+\subsubsection{Multi-Line Comment}
+\begin{verbatim}
+...
+
+$$
+This is a multi-line comment.
+It can span across multiple lines.
+$$
+
+...
+\end{verbatim}
+
+\subsection{Folder Structure}
+We have a seperate section in the code which just involves creating the folder structure. This is the first phase of working which involves in creating the folder structure easily and efficiently.
+\begin{enumerate}
+\item FOLDER is given with a colon (:) at the end.
+\item FILE is given without a colon (:) at the end.
+\end{enumerate}
+The hierarchy of folder and files are distinguished with tab spaces (\texttt{\textbackslash t}). One sample program is given below:
+\begin{verbatim}
+CS21BTECH11026:
+    TP1:
+        T1:
+            1.txt
+            2.txt
+            3.txt
+            C1:
+                overview.pdf
+        P1:
+            source_program.c
+            O1:
+                output_1.txt
+                output_2.txt
+                output_3.txt
+\end{verbatim}
+
 \subsection{Declaration Statements}
+Declaration statements involves introducing variables of various datatypes. This can include one of the following:
+\begin{enumerate}
+\item Declaring number constants
+\begin{verbatim}
+$$ This declares a variable which can hold integer constant. $$
+number <identifier>;
+number i;
+\end{verbatim}
+
+\item Declaring string constants
+\begin{verbatim}
+$$ This declares a variable which can hold strings and character constant. $$
+string <identifier>;
+string name;
+\end{verbatim}
+
+\item Declaring Files
+\begin{verbatim}
+$$ This declares a variable which can hold files. $$
+FILE <identifier>;
+FILE f1;
+\end{verbatim}
+
+\item Declaring Folders
+\begin{verbatim}
+$$ This declares a variable which can hold folder. $$
+FOLDER <identifier>;
+FOLDER f2;
+\end{verbatim}
+\end{enumerate}
 \subsection{Operational Statements}
 \subsection{Functions}
 \subsection{Built-In Functions}
