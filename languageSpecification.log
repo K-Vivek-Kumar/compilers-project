@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.7)  11 OCT 2023 00:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.7)  11 OCT 2023 23:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -272,34 +272,61 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 {C:/Users/K VIVEK KUMAR/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (lan
 guageSpecification.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 2.
+(Font)              <7> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 2.
-)
+(Font)              <5> on input line 3.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
+3.
+
+(C:\Users\K VIVEK KUMAR\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+))
 \tf@toc=\write4
 \openout4 = `languageSpecification.toc'.
 
- [1] [2] (languageSpecification.aux) ) 
+ [1] [2]
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 137.
+ [3] [4] [5] [6] [7
+
+]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8] [9] [10] (languageSpecification.aux) ) 
 Here is how much of TeX's memory you used:
- 3715 strings out of 478583
- 63517 string characters out of 5840531
- 459751 words of memory out of 5000000
- 21876 multiletter control sequences out of 15000+600000
- 478939 words of font info for 46 fonts, out of 8000000 for 9000
+ 3749 strings out of 478583
+ 64398 string characters out of 5840531
+ 472785 words of memory out of 5000000
+ 21904 multiletter control sequences out of 15000+600000
+ 479900 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,7n,77p,1024b,232s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\K VIVEK KUMAR\AppData\Local\Mi
-KTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\K VIVEK KUMAR\Ap
-pData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\K 
-VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0800.pk
-> <C:\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi6
-00\ecbx1200.pk> <C:\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
-nappen/ec/dpi600\ecrm1000.pk> <C:\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\font
-s/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\K VIVEK KUMAR\AppData\Loc
-al\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk>
-Output written on languageSpecification.pdf (3 pages, 74638 bytes).
+ 70i,12n,77p,1024b,354s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\K VIVEK KUMAR\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\K VIVEK KUMA
+R\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\User
+s\K VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt100
+0.pk> <C:\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/
+dpi600\ecbx1000.pk> <C:\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfou
+r/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\
+fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0800.pk> <C:\Users\K VIVEK KUMAR\AppData
+\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\K VIVEK
+ KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:
+\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ec
+bx2488.pk> <C:\Users\K VIVEK KUMAR\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappe
+n/ec/dpi600\ecbx1440.pk>
+Output written on languageSpecification.pdf (11 pages, 134831 bytes).
 PDF statistics:
- 240 PDF objects out of 1000 (max. 8388607)
+ 421 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
