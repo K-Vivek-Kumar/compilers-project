@@ -1,0 +1,33 @@
+----------------------------------------------------------------> Code to `Find the common length as a line segment`.
+
+env: -----------------------------------------------------------> Setting up the environment
+	g1d; ---------------------------------------------------> Environment in 1-dimensional geometry
+
+about commonLineSegment: ---------------------------------------> Function declared
+	(lineseg a, lineseg b) => (lineseg) { ------------------> Mentioning it takes two line segments and returns one line segment
+		check (~(a * b)) { -----------------------------> Checks if a and b touches each other
+			return null; ---------------------------> Returns null, which can be of any random type
+		} : check(a # b == 0) { ------------------------> Checks the length of the line segment crossed each other
+			check(a$ -> b) { -----------------------> If first point is on b
+				lineseg c = (a$, a$); ----------> Make line segment from first point of a to itself
+				return c; ----------------------> Return that line segment
+			} : { ----------------------------------> If check fails
+				return (a$$, a$$); -------------> The second point could have been touching, so return them
+			} --------------------------------------> Come out
+		} : { ------------------------------------------> If check fails
+			check(a | b) { -------------------------> Check if a is on left of b
+				return (b$, a$$); --------------> Return appropriate line
+			} : { ----------------------------------> If check fails
+				return (b$$, a$); --------------> Return appropriate line
+			} --------------------------------------> Come out
+		} ----------------------------------------------> Come out
+		return null; -----------------------------------> Returns universe datatype
+	} ------------------------------------------------------> Come out
+
+about main: ----------------------------------------------------> Main function
+	() => () { ---------------------------------------------> Arguments
+		lineseg l1 = (3, 4); ---------------------------> Declaring line segment
+		lineseg l2 = (4, 5); ---------------------------> Declaring line segment
+		lineseg l = call commonLineSegment(l1, l2); ----> Calling the function
+		show("Common line is ", l); --------------------> Print the result out
+	}
