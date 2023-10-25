@@ -1,0 +1,18 @@
+env:
+    g1d;
+
+export about vivek:
+    (point a, real b, bool c) => (int) {
+        return b;
+    }
+
+about main:
+    (lineseg a, point b) => () {
+        check (b->a) {
+            a = a + 2;
+        } : check (true) {
+            a = a + 3;
+        } : {
+            call vivek(b, 5, true);
+        }
+    }
