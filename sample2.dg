@@ -1,0 +1,20 @@
+--> Code to `Check in how many steps two line segments shall meet if first line segment (length l1) started to grow (towards L2) from point x and second line segment (length l2) started to grow (towards L1) from point y`.
+
+env:
+	g1d;
+
+about main:
+	() => () {
+		point x = 3; ----------------------------------------------------------------------------------> Declaring the first point
+		point y = 12; ---------------------------------------------------------------------------------> Declaring the second point
+		lineseg l1 = x.toright(5); --------------------------------------------------------------------> Declaring line segment L1
+		lineseg l2 = y.toright(4); --------------------------------------------------------------------> Declaring line segment L2
+		int a = 0; ------------------------------------------------------------------------------------> Declaring initial step count
+		check(l1 * l2 != 0) { -------------------------------------------------------------------------> Check if they touch
+			l1 = l1 + 1; --------------------------------------------------------------------------> Increment 1 length from right of L1
+			l2 = 1 + l2; --------------------------------------------------------------------------> Increment 1 length from left of L2
+			a = a + 1; ----------------------------------------------------------------------------> Increment step count
+			check; --------------------------------------------------------------------------------> Recheck the condition
+		} ---------------------------------------------------------------------------------------------> Shall break if check failed
+		show("They meet at the ", a, "th step, now they have ", l1 - l2, " length in common."); -------> Print the output
+	}
