@@ -1,5 +1,5 @@
 env:
-    g2d;  # Setting up the environment for 2-dimensional geometry
+    g2d;  
 
 about calculateRectangleArea:
     (real length, real width) => (real) {
