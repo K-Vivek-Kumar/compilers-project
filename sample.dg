@@ -1,0 +1,17 @@
+
+env:
+    class Rectangle:
+        pdimensions:
+            length;  # Declare dimension: length
+            width;   # Declare dimension: width
+
+        export calculate_area:
+            () => (int) {
+                return this->length * this->width;  # Calculate area using dimensions
+            }
+
+        export resize:
+            (int new_length, int new_width) => () {
+                this->length = new_length;  # Update length dimension
+                this->width = new_width;    # Update width dimension
+            }
