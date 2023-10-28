@@ -21,6 +21,11 @@
 "env"                                       { write_it_token(yytext, "Environment"); return env; }
 "g1d"                                       { write_it_token(yytext, "Workspace is 1-Dimensional Geometry"); return g1d; }
 "g2d"                                       { write_it_token(yytext, "Workspace is 2-Dimensional Geometry"); return g2d; }
+"int"                                       { write_it_token(yytext, "Data Type"); return datatype; }
+"bool"                                      { write_it_token(yytext, "Data Type"); return datatype; }
+"real"                                      { write_it_token(yytext, "Data Type"); return datatype; }
+"point"                                     { write_it_token(yytext, "Data Type"); return datatype; }
+"lineseg"                                   { write_it_token(yytext, "Data Type"); return datatype; }
 ";" 		                                { write_it_token(yytext, "End of Work"); return yytext[0]; }
 ":" 		                                { write_it_token(yytext, "Is defined as"); return yytext[0]; }
 
