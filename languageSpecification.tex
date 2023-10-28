@@ -91,28 +91,33 @@ Data types can be broadly categorized into two main groups: primitive data types
 \hline
 Types & Type of Datatype  \\
 \hline
-string & primitive \\
-number & primitive \\
-FILE & primitive \\
-FOLDER &primitive\\
+int & primitive \\
+bool &primitive\\
+real &primitive\\
+point & primitive \\
+lineseg & primitive \\
+
 \hline
 \end{tabular}
 \end{table}
 
 \subsection{Data Type Selection}
-In the design and development of our domain-specific language (FILEO Language) for file operations, we have carefully selected specific data types to represent different aspects of our language's domain. The choice of these data types is driven by the functional requirements. Below, we provide justification for the selection of each data type:
+In the design and development of our domain-specific language (G1D Language) for geometric operations, we have carefully selected specific data types to represent different aspects of our language's domain. The choice of these data types is driven by the functional requirements. Below, we provide justification for the selection of each data type:
 
-\subsubsection{String}
-String datatypes are used for file names in our FILEO Language
+\subsubsection{int}
+int datatype are used for return type of various operations
 
-\subsubsection{Number}
-The "number" data type is for return type of various operations. 
+\subsubsection{bool}
+The "bool" data type is for boolean values. 
 
-\subsubsection{FILE}
-File Handling: The "FILE" data type is selected to represent files references within our FILEO Language. This is crucial for the core functionality of reading, writing, and manipulating files in the FILEO Language designed for file operations.
+\subsubsection{real}
+The "real" data type is for real values.
 
-\subsubsection{FOLDER}
-The "FOLDER" data type is chosen to facilitate directory and folder management.
+\subsubsection{point}
+The "point" data type is chosen for the location of data on 1 dimentional line.
+
+\subsubsection{lineseg}
+The "lineseg" data type is chosen for the declaration  of line segment on 1 dimentional line.
 
 \section{Operations}
 \begin{table}[h!]
@@ -121,15 +126,13 @@ The "FOLDER" data type is chosen to facilitate directory and folder management.
   \label{tab:Operations}
   \begin{tabular}{|c|c|c|}
   \hline
-  Special keywords & Action  \\
+  Special symbol & Action  \\
   \hline
-  find & find the word   \\
-  replace & replace all the word1 with word2  \\
-  rename & renames the file \\
-  empty & empty the file content\\
-  write & the content of string in the file\\
-  copy & copy the content of file \\
-  delete & delete the file\\
+  star &  check if  two linesegment or two point touch each other \\
+  hashtag & check the overlape of two linesegment or two point  \\
+  arrrow &  check if one point or linesegment is on another one\\
+  addition & for incrementing the length of line segment \\
+  pipe & for check if first point or linesegment is on left of second \\
   \hline
   \end{tabular}
   \end{table}
@@ -154,7 +157,7 @@ This method to write new content into the file.
 This method facilitates copying the content of another file into the current file.
 \subsection{\texttt{.delete():}}
 
-This method is employed to permanently remove the file.
+This method is employed to permanently remove the file.
 
 \section{Statements}
 Within the DSL, numerous statements play essential roles in its operations. In the following subsections, we introduce each of these statements and their specific functions.
