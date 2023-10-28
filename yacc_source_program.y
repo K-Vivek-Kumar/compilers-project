@@ -21,6 +21,10 @@
 %token id
 %token env
 %token g1d g2d              // Environments
+%token int bool real point null lineseg          // datatypes
+%token check main return show                   // special keywords
+%token leftbr rightbr leftcr rightcr            // punctuations
+%token star hashtag arrow increment pipe              // operators
 
 %%
 
