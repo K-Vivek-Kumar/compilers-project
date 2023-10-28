@@ -36,7 +36,11 @@
 "--"[-]*"!>"                                { /* Starting a multi line comment */ BEGIN(COMMENT1); write_it_token("Start", "Multi-Line Comment"); }
 <COMMENT1>[^"!>"]*                          { /* Ignore the comment */ }
 <COMMENT1>"!>"                              { /* End */ BEGIN(INITIAL); write_it_token("End", "Multi-Line Comment"); }
-
+"star"                                      { write_it_token(yytext, "Check if two linesegment or two point touch each other"); return touch; }
+"hashtag"                                   { write_it_token(yytext, "Check the overlap of two linesegment or two point"); return overlap; }
+"arrrow"                                    { write_it_token(yytext, "Check if one point or linesegment is on another one"); return check; }
+"addition"                                  { write_it_token(yytext, "Incrementing the length of line segment"); return increment; }
+"pipe"                                      { write_it_token(yytext, "Check if first point or linesegment is on the left of second"); return check; }
 [a-zA-Z][a-zA-Z0-9]*                        { /* Identifier definition */ yylval.strval = strdup(yytext); write_it_token(yytext, "ID"); return id; }
 
 [ ]+                                        { /* Extra spaces are meant to be skipped */ }
