@@ -133,31 +133,40 @@ The "lineseg" data type is chosen for the declaration  of line segment on 1 dime
   arrrow &  check if one point or linesegment is on another one\\
   addition & for incrementing the length of line segment \\
   pipe & for check if first point or linesegment is on left of second \\
+  negation & used for negating the conditions\\
   \hline
   \end{tabular}
   \end{table}
 
-\subsection{\texttt{.find("word to find"):}}
+\subsection{\texttt{l1*l2}}
+l1 and l2 are linegements
+This command is used to check the touch between two linesegment.
+\subsection{\texttt{a \# b}}
+a and b are declared linesegments
+This command check the overlap length between two linesegments
 
-This command is used to search for a specified word within the file's content.
-\subsection{\texttt{.replace("word1","word2"):}}
+\subsection{\texttt{a\$->b}}
+(single doller represent the first point of linesegment whereas double doller represent the second point of linesegment )
 
-This command replaces all instances of "word1" with "word2" throughout the file's content.
-\subsection{\texttt{.rename("newname"):}}
+check if the first point of linesegment a is on linesegment b
+\subsection{\texttt{a = a + c }}
+increase the length of linesegment a by c in right direction,where c is a constant 
 
-The .rename method is used to change the name of the file.
-\subsection{\texttt{.empty():}}
 
-This method is employed to remove all content from the file, effectively emptying it.
-\subsection{\texttt{.write(string):}}
+\subsection{\texttt{a= c + a}}
+increase the length of linesegment a by c in left direction,where c is a constant 
 
 This method to write new content into the file.
-\subsection{\texttt{.copy content(file):}}
+\subsection{\texttt{a|b}}
 
-This method facilitates copying the content of another file into the current file.
-\subsection{\texttt{.delete():}}
+this  will check if the linesegment a is on left of linesegment b
+\subsection{\texttt{\string~(a*b)}}
 
-This method is employed to permanently remove the file.
+
+This operator is for negation
+
+
+
 
 \section{Statements}
 Within the DSL, numerous statements play essential roles in its operations. In the following subsections, we introduce each of these statements and their specific functions.
