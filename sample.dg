@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 env:
     g2d;  
 
@@ -130,3 +131,47 @@ env:
 
 
 >>>>>>> 849d627d253cb5d819c761a76404ad070cc929fb
+=======
+env:
+    g2d;  
+
+about calculateRectangleArea:
+    (real length, real width) => (real) {
+        return length * width;
+    }
+
+about main:
+    () => () {
+        real length = 5;
+        real width = 8;
+        real area = call calculateRectangleArea(length, width);
+        show("Area of the rectangle is ", area);
+    }
+
+
+
+
+
+%%extending to resize the dimensions%%
+
+
+env:
+    class Rectangle:
+        pdimensions:
+            length;  # Declare dimension: length
+            width;   # Declare dimension: width
+
+        export calculate_area:
+            () => (int) {
+                return this->length * this->width;  # Calculate area using dimensions
+            }
+
+        export resize:
+            (int new_length, int new_width) => () {
+                this->length = new_length;  # Update length dimension
+                this->width = new_width;    # Update width dimension
+            }
+
+
+
+>>>>>>> efbcc0a2a3c4fae165122c13759740905f611376
