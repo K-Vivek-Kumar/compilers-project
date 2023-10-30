@@ -15,16 +15,19 @@
 %union {
     char* strval;
     int numval;
+    float floatval;
 }
 
 %start PROGRAM
 %token id
 %token env
 %token g1d g2d              // Environments
-%token int bool real point null lineseg          // datatypes
-%token check main return show                   // special keywords
-%token leftbr rightbr leftcr rightcr            // punctuations
-%token star hashtag arrow increment pipe              // operators
+%token mains
+%token arrow parrow
+%token ints real bools point lineseg
+%token integer floater
+%token doll ddoll
+%token call
 
 %%
 
@@ -39,7 +42,123 @@ ENVIRONMENT:
     ;
 
 MODULES:
+    PART1 PART3
+    ;
+
+
+PART1:
+    id ':' PART2
+    | mains ':'
+    ;
+
+PART2:
+    '(' FLIST ')' arrow '(' RTYPE ')'
+    ;
+
+FLIST:
+    RTYPE2 id
+    | RTYPE2 id ',' FLIST
+    ;
+
+RTYPE:                  // Empty for void type functions
+    | ints
+    | bools
+    | real
+    | point
+    | lineseg
+    ;
+
+RTYPE2:                 // For argument data-types
+    ints
+    | bools
+    | real
+    | point
+    | lineseg
+    ;
+
+PART3:
+    '{' STATEMENTS '}'
+    ;
+
+STATEMENTS:
+    STATEMENT STATEMENTS
+    ;
+
+STATEMENT:
+    | DST
+    | AST
+    | CHECK 
+    ;
+
+CHECK:
+    PARTC1 PARTC2
+    |
+    ;
+
+PARTC1:
+    NCHECK PART3
+    | NCHECK PART3 ':' PARTC1
+    | NCHECK PART3 ':' PART3
+    ;
+
+NCHECK:
     id
+    ;
+
+PARTC2:
+    id
+    ;
+
+AST:
+    id '=' EXP ';'
+    ;
+
+DST:
+    RTYPE2 id ';'
+    | RTYPE2 id '=' EXP ';'
+    ;
+
+EXP:
+    integer
+    | floater
+    | UI EXP
+    | EXP UIB
+    | EXP BI EXP
+    | '(' EXP ')'
+    | CALL
+    ;
+
+CALL:
+    call id '(' ARGLIST ')'
+    ;
+
+ARGLIST:
+    | ARGS
+    ;
+
+ARGS:
+    EXP
+    | EXP ',' ARGS
+    ;
+
+BI:
+    '+'
+    | '*'
+    | '#'
+    | '|'
+    | '-'
+    | '/'
+    | parrow
+    ;
+
+UI:
+    '~'
+    | '-'
+    ;
+
+UIB:
+    doll
+    | ddoll
     ;
 
 %%
@@ -75,4 +194,3 @@ int main(int argc, char* argv[]) {
     fclose(yyout);
     return 0;
 }
-
