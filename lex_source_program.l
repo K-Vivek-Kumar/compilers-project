@@ -27,7 +27,7 @@
 "point"                                     { write_it_token(yytext, "Datatype"); return datatype; }
 "null"                                      { write_it_token(yytext, "Datatype"); return null; }
 "lineseg"                                   { write_it_token(yytext, "Datatype"); return datatype; }
-"about"                                     { write_it_token(yytext, "Special Keyword"); return about; }
+"export"                                     { write_it_token(yytext, "Special Keyword"); return export; }
 "check"                                     { write_it_token(yytext, "Special Keyword"); return check; }
 "main"                                      { write_it_token(yytext, "Special Keyword"); return main; }
 "return"                                     { write_it_token(yytext, "Special Keyword"); return return; }
