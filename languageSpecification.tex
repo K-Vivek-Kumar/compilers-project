@@ -153,41 +153,6 @@ In the design and development of our domain-specific language, GD Language, for 
 \begin{description}[leftmargin=1cm]
   \item[Usage:] The "lineseg" data type is the selected representation for declaring a line segment on a 1-dimensional line.
 \end{description}
-
-\section{Operations}
-\begin{table}[h!]
-  \centering
-  \caption{Operations}
-  \label{tab:Operations}
-  \begin{tabular}{|c|c|c|}
-  \hline
-  Special symbol & Action  \\
-  \hline
-  star &  check if  two linesegment or two point touch each other \\
-  hashtag & check the overlape of two linesegment or two point  \\
-  arrrow &  check if one point or linesegment is on another one\\
-  addition & for incrementing the length of line segment \\
-  pipe & for check if first point or linesegment is on left of second \\
-  negation & used for negating the conditions\\
-  \hline
-  \end{tabular}
-  \end{table}
-
-\subsection{\texttt{l1 * l2}}
-l1 and l2 are linegements
-This command is used to check the touch between two linesegment.
-\subsection{\texttt{a \# b}}
-a and b are declared linesegments
-This command check the overlap length between two linesegments
-
-\subsection{\texttt{a\$->b}}
-(single doller represent the first point of linesegment whereas double doller represent the second point of linesegment )
-
-check if the first point of linesegment a is on linesegment b
-\subsection{\texttt{a = a + c }}
-increase the length of linesegment a by c in right direction,where c is a constant
-
-
 \subsection{\texttt{a = c + a}}
 increase the length of linesegment a by c in left direction,where c is a constant
 
