@@ -11,13 +11,13 @@
 \contentsline {subsubsection}{\numberline {3.1.4}point}{5}{}%
 \contentsline {subsubsection}{\numberline {3.1.5}lineseg}{5}{}%
 \contentsline {section}{\numberline {4}Operations}{5}{}%
-\contentsline {subsection}{\numberline {4.1}\texttt {.find("word to find"):}}{5}{}%
-\contentsline {subsection}{\numberline {4.2}\texttt {.replace("word1","word2"):}}{5}{}%
-\contentsline {subsection}{\numberline {4.3}\texttt {.rename("newname"):}}{5}{}%
-\contentsline {subsection}{\numberline {4.4}\texttt {.empty():}}{5}{}%
-\contentsline {subsection}{\numberline {4.5}\texttt {.write(string):}}{5}{}%
-\contentsline {subsection}{\numberline {4.6}\texttt {.copy content(file):}}{5}{}%
-\contentsline {subsection}{\numberline {4.7}\texttt {.delete():}}{6}{}%
+\contentsline {subsection}{\numberline {4.1}\texttt {l1 * l2}}{5}{}%
+\contentsline {subsection}{\numberline {4.2}\texttt {a \# b}}{5}{}%
+\contentsline {subsection}{\numberline {4.3}\texttt {a\$->b}}{5}{}%
+\contentsline {subsection}{\numberline {4.4}\texttt {a = a + c }}{5}{}%
+\contentsline {subsection}{\numberline {4.5}\texttt {a = c + a}}{5}{}%
+\contentsline {subsection}{\numberline {4.6}\texttt {a | b}}{6}{}%
+\contentsline {subsection}{\numberline {4.7}\texttt {~(a*b)}}{6}{}%
 \contentsline {section}{\numberline {5}Statements}{6}{}%
 \contentsline {subsection}{\numberline {5.1}Comments}{6}{}%
 \contentsline {subsubsection}{\numberline {5.1.1}In-Line Comment}{6}{}%
