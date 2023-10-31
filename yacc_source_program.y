@@ -97,7 +97,6 @@ FPART4:
 STATS:
     STAT
     | STAT STATS
-    | returns EXP ';'
     ;
 
 STAT:
@@ -105,6 +104,17 @@ STAT:
     | EQN
     | CALLS ';'
     | CHECK
+    | returns EXP ';'
+    | SHOW
+    ;
+
+SHOW:
+    show '(' IDLIST ')' ';'
+    ;
+
+IDLIST:
+    EXP
+    | EXP ',' IDLIST
     ;
 
 CHECK:
@@ -134,6 +144,14 @@ COND:
     ;
 
 CHECK2:
+    check '(' COND ')' '{' STATSW '}'
+    ;
+
+STATSW:
+    STATS recheck ';' STATS
+    | recheck ';' STATS
+    | STATS recheck ';'
+    | recheck ';'
     ;
 
 EQN:
@@ -231,5 +249,6 @@ int main(int argc, char* argv[]) {
     fclose(yyin);
     fclose(output_file);
     fclose(yyout);
-    return 0;
+    return 0;
 }
+
