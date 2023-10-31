@@ -64,6 +64,7 @@
 "}" 		                                { write_it_token(yytext, "Punctuation"); return yytext[0]; }
 "/." 		                                { write_it_token(yytext, "Punctuation"); return yytext[0]; }
 
+"," 		                                { write_it_token(yytext, "Comma"); return yytext[0]; }
 ";" 		                                { write_it_token(yytext, "End of Work"); return yytext[0]; }
 ":" 		                                { write_it_token(yytext, "Is defined as"); return yytext[0]; }
 "~" 		                                { write_it_token(yytext, "Negation"); return yytext[0]; }
