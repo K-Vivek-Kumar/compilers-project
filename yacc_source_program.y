@@ -21,54 +21,61 @@
 %start PROGRAM
 %token id
 %token env
-%token g1d g2d              // Environments
-%token mains
 %token arrow parrow
 %token ints real bools point lineseg
 %token integer floater
 %token doll ddoll
 %token call
+%token check 
+%token trues falses
+%token and or lequal geq leq neq
+%token recheck returns show
+
+
+%left '(' ')'
+%left '*' '/' '%'
+%left '+' '-'
+%left '&'
+%left '^'
+%left '|'
+%left '<' '>' leq geq lequal neq
+%right '~'
+
 
 %%
 
 PROGRAM:
-    ENVIRONMENT MODULES
+    ENV MODULES
     ;
 
-ENVIRONMENT:
-    env ':' g1d ';'                                 { fprintf(yyout, "Hello world"); }
-    |   env ':' g2d ';'
-    |   env ':' id ';'                              { fprintf(stderr, "Line %d: is an `Unknown Environment`.\n", lines); }
+ENV:
+    env ':' id ';'
     ;
 
 MODULES:
-    PART1 PART3
+    MODULE
+    | MODULE MODULES
     ;
 
-
-PART1:
-    id ':' PART2
-    | mains ':'
+MODULE:
+    FPART1 FPART2 arrow FPART3 FPART4
     ;
 
-PART2:
-    '(' FLIST ')' arrow '(' RTYPE ')'
+FPART1:
+    id ':'
     ;
 
-FLIST:
-    RTYPE2 id
-    | RTYPE2 id ',' FLIST
+FPART2:
+    '(' DLIST ')'
+    | '(' ')'
     ;
 
-RTYPE:                  // Empty for void type functions
-    | ints
-    | bools
-    | real
-    | point
-    | lineseg
+DLIST:
+    DTYPE id
+    | DTYPE id ',' DLIST
     ;
 
-RTYPE2:                 // For argument data-types
+DTYPE:
     ints
     | bools
     | real
@@ -76,87 +83,119 @@ RTYPE2:                 // For argument data-types
     | lineseg
     ;
 
-PART3:
-    '{' STATEMENTS '}'
+
+FPART3:
+    '(' DTYPE ')'
+    | '(' ')'
     ;
 
-STATEMENTS:
-    STATEMENT STATEMENTS
+FPART4:
+    '{' STATS '}'
+    | '{' '}'
     ;
 
-STATEMENT:
-    | DST
-    | AST
-    | CHECK 
+STATS:
+    STAT
+    | STAT STATS
+    | returns EXP ';'
+    ;
+
+STAT:
+    DECL
+    | EQN
+    | CALLS ';'
+    | CHECK
     ;
 
 CHECK:
-    PARTC1 PARTC2
-    |
+    CHECK1
+    | CHECK2
     ;
 
-PARTC1:
-    NCHECK PART3
-    | NCHECK PART3 ':' PARTC1
-    | NCHECK PART3 ':' PART3
+CHECK1:
+    check '(' COND ')' '{' STATS '}' OCHECK ECHECK
+    | check '(' COND ')' '{' '}' OCHECK ECHECK
     ;
 
-NCHECK:
-    id
+OCHECK:
+    | OCHECK ':' check '(' COND ')' '{' STATS '}'
+    | OCHECK ':' check '(' COND ')' '{' '}'
     ;
 
-PARTC2:
-    id
+ECHECK:
+    | ':' '{' STATS '}'
+    | ':' '{' '}'
     ;
 
-AST:
+COND:
+    EXP
+    | EXP CONJ EXP
+    | '~' EXP
+    ;
+
+CHECK2:
+    ;
+
+EQN:
     id '=' EXP ';'
     ;
 
-DST:
-    RTYPE2 id ';'
-    | RTYPE2 id '=' EXP ';'
+DECL:
+    DTYPE id ';'
+    | DTYPE id '=' EXP ';'
     ;
 
 EXP:
-    integer
+    id
+    | integer
     | floater
-    | UI EXP
-    | EXP UIB
-    | EXP BI EXP
     | '(' EXP ')'
-    | CALL
+    | EXP BI EXP
+    | UOF EXP
+    | EXP UOB
+    | CALLS
+    | trues
+    | falses
+    | EXP CONJ EXP
     ;
 
-CALL:
-    call id '(' ARGLIST ')'
+CONJ:
+    and
+    | or
+    | lequal
+    | '>'
+    | '<'
+    | geq
+    | leq
+    | neq
     ;
 
-ARGLIST:
-    | ARGS
+CALLS:
+    call id '(' GLIST ')'
+    | call id '(' ')'
     ;
 
-ARGS:
+GLIST:
     EXP
-    | EXP ',' ARGS
+    | EXP ',' GLIST
     ;
 
 BI:
     '+'
+    | '-'
     | '*'
-    | '#'
-    | '|'
-    | '-'
     | '/'
+    | '|'
     | parrow
+    | '.'
+    | '#'
     ;
 
-UI:
+UOF:
     '~'
-    | '-'
     ;
 
-UIB:
+UOB:
     doll
     | ddoll
     ;
@@ -192,5 +231,5 @@ int main(int argc, char* argv[]) {
     fclose(yyin);
     fclose(output_file);
     fclose(yyout);
-    return 0;
+    return 0;
 }
