@@ -3,6 +3,18 @@
     #include <stdlib.h>
     #include <string.h>
 
+    #define size_symtab 100
+
+    typedef struct {
+        char *name;
+        char *type;
+        char *env;
+        int level;
+    } symtabrow;
+
+    symtabrow symbol_table[size_symtab];
+    int symtabindex = 0;
+
     extern FILE* yyin;
     extern FILE* yyout;
     extern int yylex();
@@ -19,203 +31,196 @@
 }
 
 %start PROGRAM
-%token id
-%token env
-%token arrow parrow
-%token ints real bools point lineseg
-%token integer floater
-%token doll ddoll
-%token call
-%token check 
-%token trues falses
-%token and or lequal geq leq neq
-%token recheck returns show
 
-
-%left '(' ')'
-%left '*' '/' '%'
-%left '+' '-'
-%left '&'
-%left '^'
-%left '|'
-%left '<' '>' leq geq lequal neq
-%right '~'
-
+%token mains id colon arrow comma intd reald boold pointd linesegd quadd trid pass integer floater trues falses origin
+%token add minus multiply divide and or longeql nt geq leq lt gt neg
+%token area intersection
 
 %%
 
 PROGRAM:
-    ENV MODULES
+    FUNCTIONS MAINS
+    | MAINS
     ;
 
-ENV:
-    env ':' id ';'
+FUNCTIONS:
+    FUNCTION FUNCTIONS
     ;
 
-MODULES:
-    MODULE
-    | MODULE MODULES
+FUNCTION:
+    id colon FPARTARGS arrow FPARTRETS FBODY
+    id colon '(' ')' arrow '(' ')' '{' '}'
     ;
 
-MODULE:
-    FPART1 FPART2 arrow FPART3 FPART4
+FPARTARGS:
+    | ARGS
     ;
 
-FPART1:
-    id ':'
+ARGS:
+    ARG
+    | ARG comma ARGS
     ;
 
-FPART2:
-    '(' DLIST ')'
-    | '(' ')'
+ARG:
+    PDATA id
+    | SDATA id
     ;
 
-DLIST:
-    DTYPE id
-    | DTYPE id ',' DLIST
+PDATA:
+    intd
+    | reald
+    | boold
     ;
 
-DTYPE:
-    ints
-    | bools
-    | real
-    | point
-    | lineseg
+SDATA:
+    pointd
+    | linesegd
+    | quadd
+    | trid
     ;
 
-
-FPART3:
-    '(' DTYPE ')'
-    | '(' ')'
+FPARTRETS:
+    | PDATA
+    | SDATA
     ;
 
-FPART4:
-    '{' STATS '}'
-    | '{' '}'
+MAINS:
+    mains FBODY
     ;
 
-STATS:
-    STAT
-    | STAT STATS
+FBODY:
+    '{' PSTATS '}'
+    | '{' pass '}'
     ;
 
-STAT:
-    DECL
-    | EQN
-    | CALLS ';'
-    | CHECK
-    | returns EXP ';'
-    | SHOW
+PSTATS:
+    PSTAT
+    | PSTAT PSTATS
     ;
 
-SHOW:
-    show '(' IDLIST ')' ';'
+PSTAT:
+    DSTMTS
+    | CSTMTS
     ;
 
-IDLIST:
-    EXP
-    | EXP ',' IDLIST
+CSTMTS:
+    id '(' ')' ';'
+    | id '(' GARG ')' ';'
     ;
 
-CHECK:
-    CHECK1
-    | CHECK2
+GARG:
+    GAR
+    | GAR comma GARG
     ;
 
-CHECK1:
-    check '(' COND ')' '{' STATS '}' OCHECK ECHECK
-    | check '(' COND ')' '{' '}' OCHECK ECHECK
+GAR:
+    id
+    | CTS
+    | BIEXP
+    | UNEXP
+    | '(' GAR ')'
+    | FOPRS
     ;
 
-OCHECK:
-    | OCHECK ':' check '(' COND ')' '{' STATS '}'
-    | OCHECK ':' check '(' COND ')' '{' '}'
+CTS:
+    integer
+    | floater
+    | trues
+    | falses
+    | origin
     ;
 
-ECHECK:
-    | ':' '{' STATS '}'
-    | ':' '{' '}'
+FOPRS:
+    area '(' GAR ')'
+    | intersection '(' GAR comma GAR ')'
     ;
 
-COND:
-    EXP
-    | EXP CONJ EXP
-    | '~' EXP
+BIEXP:
+    GAR add GAR
+    | GAR minus GAR
+    | GAR multiply GAR
+    | GAR divide GAR
+    | GAR and GAR
+    | GAR or GAR
+    | GAR longeql GAR
+    | GAR geq GAR
+    | GAR leq GAR
+    | GAR gt GAR
+    | GAR lt GAR
+    | GAR nt GAR
     ;
 
-CHECK2:
-    check '(' COND ')' '{' STATSW '}'
+UNEXP:
+    neg GAR
     ;
 
-STATSW:
-    STATS recheck ';' STATS
-    | recheck ';' STATS
-    | STATS recheck ';'
-    | recheck ';'
+DSTMTS:
+    POINTD
+    | LINED
+    | TRID
+    | QUAD
+    | PRIMITIVE
     ;
 
-EQN:
-    id '=' EXP ';'
+POINTD:
+    pointd id ';'
+    | pointd id '=' PTEXP ';'
     ;
 
-DECL:
-    DTYPE id ';'
-    | DTYPE id '=' EXP ';'
+PTEXP:
+    id
+    | '(' EXP comma EXP ')'
     ;
 
 EXP:
-    id
-    | integer
+    integer
     | floater
-    | '(' EXP ')'
-    | EXP BI EXP
-    | UOF EXP
-    | EXP UOB
-    | CALLS
-    | trues
-    | falses
-    | EXP CONJ EXP
+    | id
     ;
 
-CONJ:
-    and
-    | or
-    | lequal
-    | '>'
-    | '<'
-    | geq
-    | leq
-    | neq
+LINED:
+    linesegd id ';'
+    | linesegd id '=' LEXP ';'
     ;
 
-CALLS:
-    call id '(' GLIST ')'
-    | call id '(' ')'
+LEXP:
+    id
+    | '(' PTEXP comma PTEXP ')'
     ;
 
-GLIST:
-    EXP
-    | EXP ',' GLIST
+TRID:
+    trid id ';'
+    | trid id '=' TEXP ';'
     ;
 
-BI:
-    '+'
-    | '-'
-    | '*'
-    | '/'
-    | '|'
-    | parrow
-    | '.'
-    | '#'
+TEXP:
+    id
+    | '(' PTEXP comma PTEXP comma PTEXP ')'
+    | '(' PTEXP comma LEXP ')'
     ;
 
-UOF:
-    '~'
+QUAD:
+    quadd id ';'
+    | quadd id '=' QEXP ';'
     ;
 
-UOB:
-    doll
-    | ddoll
+QEXP:
+    id
+    | '(' PTEXP comma PTEXP comma PTEXP comma PTEXP ')'
+    | '(' PTEXP comma PTEXP comma LEXP ')'
+    | '(' LEXP comma LEXP ')'
+    ;
+
+PRIMITIVE:
+    intd id ';'
+    | intd id '=' integer ';'
+    | reald id ';'
+    | boold id ';'
+    | reald id '=' floater ';'
+    | boold id '=' trues ';'
+    | boold id '=' falses ';'
+    | boold id '=' integer ';'
+    | boold id '=' floater ';'
     ;
 
 %%
