@@ -1,0 +1,53 @@
+<> sample program
+checks loop, if -else, function call , 
+nested loops,etc.
+ </>
+
+
+---> function declaration
+
+calcequality: (point p ,point q) => (int){
+
+      check ( p = q ) {
+     point c = p ;
+ } else {
+         loop ( p!= q) {
+
+            point j = p ;
+            q = j ;
+        
+           }
+         }
+}
+
+
+
+main {
+    point a = (1, 1);
+    point b = (1, 2);
+    lineseg l1 = (a, b);
+    lineseg l2 = ((1,2), (3,4));
+    triangle t = (a, b, c);
+    quad s = (a, b, c, d);
+    
+    int a = 0;
+    real b = 3.4;
+    bool a = false;
+    maintt(a, b);
+    
+    loop (a==b) {
+     lineseg h1 = l1;
+    }
+    check (l1==l2) {
+         point g = (5,6);
+
+    } else check(a) {
+      
+     point c= g;
+      
+    } else {
+      pass;
+    }
+
+    calcequality(a,b);
+}
