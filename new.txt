@@ -1,0 +1,20 @@
+int=>vivek(int i){
+    return 0;
+}
+
+int=>main(){
+    int=>i; ~ This is our y
+    int=>j; ~ This is our x
+    i = 0;
+    j = 0;
+    loop(i < 10){
+        y = i;
+        x = j;
+        @line
+        i = i + 1;
+        j = i * i;
+    }
+    @graph
+    vivek(1);
+    return 0;
+}
