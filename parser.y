@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "types.h"
 
 extern FILE *yyin;
 extern FILE *yyout;
@@ -16,43 +17,62 @@ void yyerror(const char *msg);
 typedef struct {
     char *function_name;
     int number_of_arguments;
-    int return_type;
-    int *list_of_argument_types; // Changed to a pointer
+    struct Arg *arg_list;
+    int r_type;
 } each_function;
 
 each_function function_table[MAX_FUNCTIONS];
 int function_count = 0;
 
-void insert_a_function(char *function_name, int *list_of_argument_types, int return_type) {
-    if (function_count < MAX_FUNCTIONS) {
-        function_table[function_count].function_name = strdup(function_name);
-        function_table[function_count].number_of_arguments = function_count;
-        function_table[function_count].return_type = return_type;
-        function_table[function_count].list_of_argument_types = list_of_argument_types; // Assign the pointer
-        printf("Function inserted successfully: %s\n", function_name);
-        function_count++;
-    } else {
-        printf("Error: Maximum number of functions reached\n");
+void insert_a_function(char *function_name, struct Arg **arg_lst, int return_type) {
+    printf("Function to be inserted\n");
+}
+
+
+
+
+
+void printArg(struct Arg *arg) {
+        printf("Name: %s\n", arg->name);
+        printf("Type: %d\n", arg->type);
+}
+
+void printArgList(struct Arg **arg_list) {
+    if (arg_list == NULL) {
+        printf("No arguments\n");
+        return;
+    }
+
+    printf("Arguments:\n");
+    for (int i = 0; arg_list[i] != NULL; i++) {
+        printf("  Argument %d:\n", i + 1);
+        printf("    Name: %s\n", arg_list[i]->name);
+        printf("    Type: %d\n", arg_list[i]->type);
     }
 }
 %}
 
 %union {
-    int *argument_list; // Change the type to a pointer
-    int argument_type;
     int return_type;
+    char* strval;
+    int numval;
+    float floatval;
+    struct Arg *arg;
+    struct Arg **arg_list;
 }
 
-%type <argument_list> ARGUMENTS
-%type <argument_type> ARGUMENT
+%type <arg_list> ARGUMENTS
+%type <arg> ARGUMENT
 %type <return_type> RETURN_TYPE
 
 %start PROGRAM
 
 %token id
-%token colon
+%token colon 
 %token comma
 %token integer
+%token intd real bools point lineseg triangle quad
+
 
 %%
 
@@ -67,41 +87,91 @@ FUNCTIONS:
 
 FUNCTION:
     id colon '(' ARGUMENTS ')' '(' RETURN_TYPE ')' '{' '}' {
-        insert_a_function(strdup($1), $4, $7);
+        printArgList($4);
+        insert_a_function($<strval>1, $4, $7);
     }
     ;
 
+
 ARGUMENTS:
     {
-        $$ = NULL; // Initialize the pointer to NULL
+        $$ = (struct Arg **)malloc(sizeof(struct Arg *));
+        $$[0] = NULL;
     }
     | ARGUMENT {
-        $$ = $1; // Assign the pointer
+        $$ = (struct Arg **)malloc(sizeof(struct Arg *) * 2);
+        if ($$ == NULL) {
+            fprintf(stderr, "Memory allocation failed for ARGUMENTS\n");
+            exit(1);
+        }
+        $$[0] = $1;
+        $$[1] = NULL;
     }
     | ARGUMENT comma ARGUMENTS {
-        $$ = $1; // Assign the pointer (assuming it's a list of arguments)
+        $$ = (struct Arg **)malloc(sizeof(struct Arg *) * 3);
+        if ($$ == NULL) {
+            fprintf(stderr, "Memory allocation failed for ARGUMENTS\n");
+            exit(1);
+        }
+        $$[0] = $1; 
+        int i;
+        for (i = 0; $3[i] != NULL; i++) {
+            $$[i + 1] = $3[i];
+        }
+        $$[i + 1] = NULL;
     }
     ;
 
 ARGUMENT:
-    integer id {
-        int *arg_list = (int *)malloc(MAX_ARGS * sizeof(int)); // Allocate memory for an array of integers
-        if (arg_list == NULL) {
-            fprintf(stderr, "Memory allocation failed for argument list\n");
-            exit(1); // Handle memory allocation failure
+    intd id {
+        $$ = (struct Arg *)malloc(sizeof(struct Arg));
+        if ($$ == NULL) {
+            fprintf(stderr, "Memory allocation failed for ARGUMENT\n");
+            exit(1);
         }
-        arg_list[0] = atoi($1); // Store argument type in the argument list
-        $$ = arg_list; // Assign the pointer
+        $$->type = 0;
+        $$->name = strdup($<strval>2);
+    }
+    | id id {
+        yyerror("Unrecognized argument type");
+        exit(1);
+    }
+    | id {
+        yyerror("Argument should contain a datatype!");
+        exit(1);
     }
     ;
+
 
 
 RETURN_TYPE:
     {
         $$ = -1; // Initialize the pointer to NULL
     }
-    | integer {
+    | intd {
         $$ = 0; // Assign the pointer
+    }
+    | bools {
+        $$ = 1; // Assign the pointer
+    }
+    | real {
+        $$ = 2; // Assign the pointer
+    }
+    | point {
+        $$ = 3; // Assign the pointer
+    }
+    | lineseg {
+        $$ = 4; // Assign the pointer
+    }
+    | triangle {
+        $$ = 5; // Assign the pointer
+    }
+    | quad {
+        $$ = 6; // Assign the pointer
+    }
+    | id {
+        yyerror("Unrecognized return type");
+        exit(1);
     }
     ;
 
