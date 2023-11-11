@@ -14,11 +14,6 @@ void write_it_token(const char* str);
 %option noyywrap
 %x COMMENT COMMENT1
 
-%union {
-    float float_num;  // To store floating-point numbers
-    char* strval;      // To store string values (IDs)
-}
-
 %%
 
 <INITIAL>"---" {
@@ -56,6 +51,7 @@ void write_it_token(const char* str);
 
 "comma" {
     write_it_token("comma");
+    return COMMA;  // Return a token type (e.g., COMMA)
 }
 
 [a-zA-Z][a-zA-Z0-9]* {
@@ -67,6 +63,7 @@ void write_it_token(const char* str);
 [ ]+ {
     /* Extra spaces are meant to be skipped */
 }
+
 [\t]+ {
     /* Extra tab-spaces are meant to be skipped */
 }
