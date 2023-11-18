@@ -1,0 +1,11 @@
+x_0_global,-1,0
+y_0_global,-1,0
+i_0_global,-1,0
+j_0_global,int,16
+xt_3_func1,int,0
+x_2_func1,int,0
+abcd_2_func1,int,8
+z_2_func1,point,0
+abcde_2_func1,int,300
+ab_2_func1,float,0
+abc_2_func1,float,0

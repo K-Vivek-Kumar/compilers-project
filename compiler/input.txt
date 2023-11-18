@@ -1,0 +1,33 @@
+x, y, i, j[4] : int;
+
+func2: (void) => (a[]: int) {
+    printf(a);
+    *****
+    return;
+}
+
+func1: (int) => (a: int, b[][]: int, c: point) {
+    a = 1 + (2 * 3) * "5";
+    while(6){
+        *****
+        xt:int;
+        xt = x;
+    }
+    x: int;
+    abcd[2]: int;
+    z: point;
+    z = 1#2;
+    abcde[5][5][3]: int;
+    for(i = 0; i < 5; i = i + 1){
+        *****
+    }
+    ->abcd[1] = 1;
+    ab: float;
+    abc: float;
+    ab = (5 # 6) + (6 # 5);
+    return 0;
+}
+
+main: (int) => () {
+    return func1(0, 0, 1#2);
+}
