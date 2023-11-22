@@ -51,8 +51,6 @@ int actfuncindex=0;
 int canbreak=0;
 int callfuncindex;
 int globallevel=0;
-void releasetemp(int i);
-int newtemp();
 int InArr(struct varrecord arr[],int size,char finder[]);
 bool CheckVar (struct varrecord arr[],int size,char finder[],int level);
 void PrintVars(struct varrecord a);
@@ -145,7 +143,6 @@ int varl = 0;
 
 	int bplist[1000];
 	int bpcount;
-	int tempreg;
 	int quad;
 	int begin;
 	int bplist2[1000];
@@ -184,7 +181,7 @@ INPUT : FUNC_DECL INPUT
 FUNC_DECL : FUNC_HEAD BODY {
 							actfuncindex++;  
 							globallevel=0;
-							 char printer[1000];
+							 
 							 
 						}
 				| error SCS  { yyerrok;}
@@ -203,7 +200,7 @@ RESULT_ID : ID COLON OPT RESULT CPT {
 						strcpy(functable[actfuncindex].name,$1.vali);
 
 						fprintf(trans, "%s %s (", functable[actfuncindex].type, $1.vali);
-						// char printer[1000];
+						// 
 						// snprintf(printer,999,"func begin %s",$1.vali);
 						// GenQuad(printer);
 
@@ -225,7 +222,7 @@ DEC : ID COLON TYPE				{
 								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$1.vali); 
 								if(finder!=-1)
 								{
-									char printer[1000];
+									
 									CallError(printer);
 								}
 								else
@@ -252,7 +249,7 @@ DEC : ID COLON TYPE				{
 								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$1.vali); 
 								if(finder!=-1)
 								{
-									char printer[1000];
+									
 									CallError(printer);
 								}
 								else
@@ -379,13 +376,13 @@ S:      error SCS  { yyerrok;}
 								{
 									CallError("Break can only occur within switch or loops.");
 								}
-								char printer[1000];
+								
 								
 								canbreakarr[canbreak][canbreakcount[canbreak]++]=nextquad;
 								
 							}
 		| PRINT OPT COR CPT  SCS      {
-								char printer[1000];
+								
 							
 								if(!strcmp($3.type,"errortype"))
 								{
@@ -410,7 +407,7 @@ RETURN : RET           	{
 							{
 								CallWarning("No return value in non-void function.");
 							}
-							char printer[1000];
+							
 							
 							fprintf(trans, "return");
 						}
@@ -420,10 +417,10 @@ RETURN : RET           	{
 								CallWarning("Return value in a void function.");
 							}
 							
-							char printer[1000];
+							
 							if(!strcmp(functable[actfuncindex].type,"float"))
 							{
-								int temp2=$2.tempreg;
+								
 								if(!strcmp($2.type,"int"))
 								{
 									
@@ -433,7 +430,7 @@ RETURN : RET           	{
 							}
 							else
 							{
-								int temp2=$2.tempreg;
+							
 								if(!strcmp($2.type,"float"))
 								{
 									
@@ -461,9 +458,9 @@ FUNC_CALL : IDTEMP OPT PARAMLIST CPT {
 										}
 
 
-										char printer[1000];
+										
 									
-										int gettemp;
+									
 										if(callfuncindex!=-1)
 										{
 										if(!strcmp(functable[callfuncindex].type,"int"))
@@ -474,10 +471,8 @@ FUNC_CALL : IDTEMP OPT PARAMLIST CPT {
 										{
 											
 										}
-										else
-											gettemp=-1;
-
-										$$.tempreg=gettemp;
+										else{}
+											
 										}
 
 									 }
@@ -524,7 +519,7 @@ PLIST : PLIST COMMA COR {
 							strcpy(checktype,"errortype");
 							}
 
-							char printer[1000];
+							
 							if(!strcmp($3.type,"int"))
 							{
 								if(!strcmp(checktype,"float"))
@@ -560,7 +555,7 @@ PLIST : PLIST COMMA COR {
 							strcpy(checktype,functable[callfuncindex].paramtable[$$.counter-1].vartype);
 							else{}
 							strcpy(checktype,"errortype");
-							char printer[1000];
+							
 							if(!strcmp($1.type,"int"))
 							{
 								if(!strcmp(checktype,"float"))
@@ -593,7 +588,7 @@ PLIST : PLIST COMMA COR {
 
 WHILE : WHILEXP BODY				{
 										
-										char printer[1000];
+										
 									
 										$$.bpcount=0;
 										int i;
@@ -604,8 +599,8 @@ WHILE : WHILEXP BODY				{
 WHILEXP : WHILET MWHILE OPT COR CPT { 
 									
 									
-									int temp2=$4.tempreg;
-									char printer[1000];
+									
+									
 									if(!strcmp($4.type,"float"))
 									{
 										
@@ -627,7 +622,7 @@ MWHILE :           { $$.quad=nextquad;}
 
 
 FOR : FOREXP BODY {		
-						char printer[1000];
+						
 					
 						$2.bplist[$2.bpcount++]=nextquad;
 				
@@ -642,7 +637,7 @@ FOR : FOREXP BODY {
 
 FOREXP : FORBACK1 FORBACK2 {globallevel++;canbreak++;
 								$$.quad=$2.quad;
-								char printer[1000];
+								
 								
 
 								$$.bpcount=0;
@@ -655,8 +650,8 @@ FOREXP : FORBACK1 FORBACK2 {globallevel++;canbreak++;
 		;
 FORBACK1 : FORT OPT ASSIGN MFOR COR SCS {
 					
-									int temp2=$5.tempreg;
-									char printer[1000];
+							
+									
 									if(!strcmp($5.type,"float"))
 									{
 									
@@ -669,7 +664,7 @@ FORBACK1 : FORT OPT ASSIGN MFOR COR SCS {
 									$$.bpcount2=0;
 									$$.bplist2[$$.bpcount2++]=nextquad;
 							
-									$$.quad=$4.quad;
+								
 
  									}
  		;
@@ -720,7 +715,7 @@ IFELSE : IFEXP BODY                    {
 										}
 		;
 NIF : 								{
-											char printer[1000];
+											
 								
 											$$.bpcount=0;
 											$$.bplist[$$.bpcount++]=nextquad;
@@ -731,9 +726,9 @@ MIF :  											{$$.quad=nextquad;globallevel++;}
 		;
 IFEXP : IFS OPTS COR CPTS  						{ 
 									
-									char printer[1000];
+									
 									globallevel ++;
-									int temp2=$3.tempreg;
+									
 									if(!strcmp($3.type,"float"))
 									{
 									
@@ -809,13 +804,13 @@ ARR : ID BRLIST                 {
 				checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
 				if(finder!=-1 && globallevel==2)
 				{
-					char printer[1000];
+					
 				
 					CallError(printer);
 				}
 				else if(checker!=-1 && functable[actfuncindex].vartable[checker].level==globallevel)
 				{
-					char printer[1000];
+					
 						CallError(printer);
 				}
 				else{}
@@ -924,13 +919,13 @@ IDS : ID 	{
 				checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
 				if(finder!=-1 && globallevel==2)
 				{
-					char printer[1000];
+					
 				
 					CallError(printer);
 				}
 				else if(checker!=-1 && functable[actfuncindex].vartable[checker].level==globallevel)
 				{
-					char printer[1000];
+					
 					CallError(printer);
 				}
 				else
@@ -969,7 +964,7 @@ FORASSIGN : ID EQ COR       {
 
 								if(checker==-1 && finder==-1 && gchecker==-1)
 								{
-									char printer[1000];
+									
 									CallError(printer);
 								}
 								if(checker!=-1)
@@ -979,45 +974,6 @@ FORASSIGN : ID EQ COR       {
 								else if(gchecker!=-1)
 									strcpy($1.type,functable[0].vartable[gchecker].vartype);
 
-
-								if($3.tempreg==-1)
-								{
-									CallError("Void function does not return anything.");
-								}
-								else if($3.tempreg==-2)
-								{
-									CallError("Some error in assignment.");
-								}
-								else{}
-								{
-									char printer[1000];
-									if(!strcmp($3.type,"int"))
-									{
-										if(!strcmp($1.type,"int"))
-										{
-											if(checker!=-1){}
-												
-											else if(finder!=-1){}
-												
-											else{}
-
-											
-
-										}
-										else{}
-										{
-											
-										
-											if(checker!=-1){}
-												
-											else if(finder!=-1){}
-												
-											else{}
-												
-
-										
-										}
-									}
 									if(!strcmp($3.type,"float"))
 									{
 										if(!strcmp($1.type,"float"))
@@ -1053,46 +1009,7 @@ FORASSIGN : ID EQ COR       {
 								
 									if($1.arr!=-1 && $1.ind!=-1)
 									{
-										if($3.tempreg==-1)
-										{
-											CallError("Void function does not return anything.");
-										}
-										else if($3.tempreg==-2)
-										{
-									CallError("Some error in assignment.");
 										
-										}
-										else{}
-										{
-											char printer[1000];
-											if(!strcmp($3.type,"int"))
-											{
-												if(!strcmp($1.type,"int"))
-												{
-													
-
-												}
-												else{}
-												{
-													
-												}
-											}
-											if(!strcmp($3.type,"float"))
-											{
-												if(!strcmp($1.type,"float"))
-												{
-													
-													
-
-												}
-												else{}
-												{
-													
-
-												}										
-											}
-										
-									}
 							}
 							}
 			;
@@ -1106,7 +1023,7 @@ ASSIGN : ID EQ COR SCS       {
 
 								if(checker==-1 && finder==-1 && gchecker==-1)
 								{
-									char printer[1000];
+									
 									
 									CallError(printer);
 								}
@@ -1118,112 +1035,13 @@ ASSIGN : ID EQ COR SCS       {
 									strcpy($1.type,functable[0].vartable[gchecker].vartype);
 
 
-								if($3.tempreg==-1)
-								{
-									CallError("Void function does not return anything.");
-								}
-								else if($3.tempreg==-2)
-								{
-									CallError("Some error in assignment.");
-								}
-								else{}
-								{
-									char printer[1000];
-									if(!strcmp($3.type,"int"))
-									{
-										if(!strcmp($1.type,"int"))
-										{
-											if(checker!=-1){}
-												
-											else if(finder!=-1){}
-												
-											else{}
-												
-
-										}
-										else{}
-										{
-										
-											if(checker!=-1){}
-												
-											else if(finder!=-1){}
-												
-											else{}
-											
-										}
-									}
-									if(!strcmp($3.type,"float"))
-									{
-										if(!strcmp($1.type,"float"))
-										{
-											if(checker!=-1){}
-												
-											else if(finder!=-1){}
-												
-											else{}
-												
-
-										}
-										else
-										{
-											
-											if(checker!=-1){}
-												
-											else if(finder!=-1){}
-												
-											else{}
-												
-
-										}										
-									}
-									
-								}
-
+								
 							}
 		| ARRF EQS COR SCS     {
 									
 									if($1.arr!=-1 && $1.ind!=-1)
 									{
-										if($3.tempreg==-1)
-										{
-											CallError("Void function does not return anything.");
-										}
-										else if($3.tempreg==-2)
-										{
-									CallError("Some error in assignment.");
 										
-										}
-										else
-										{
-											char printer[1000];
-											if(!strcmp($3.type,"int"))
-											{
-												if(!strcmp($1.type,"int"))
-												{
-													
-
-												}
-												else
-												{
-												
-												}
-											}
-											if(!strcmp($3.type,"float"))
-											{
-												if(!strcmp($1.type,"float"))
-												{
-													
-											
-
-												}
-												else
-												{
-													
-
-												}										
-											}
-										
-									}
 									
 
 							}
@@ -1247,7 +1065,7 @@ COR	: COR OR CAND               {
 										$$.countor=1;
 
 										
-										int temp2=$1.tempreg;
+										
 										if(!strcmp($1.type,"float"))
 										{
 											
@@ -1266,8 +1084,8 @@ COR	: COR OR CAND               {
 									$$.caseallow=$1.caseallow && $3.caseallow;
 									
 
-									char printer[1000];
-									int temp2=$3.tempreg;
+									
+				
 									if(!strcmp($3.type,"float"))
 									{
 										
@@ -1283,7 +1101,7 @@ COR	: COR OR CAND               {
 									$$.bplist[$$.bpcount++]=nextquad;
 
 									
-									$$.tempreg=$1.tempreg;
+								
 
 								}
 		| CAND  				{
@@ -1291,7 +1109,7 @@ COR	: COR OR CAND               {
 									$$.bpcount=0;
 									strcpy($$.type,$1.type);
 									$$.caseallow=$1.caseallow;
-									$$.tempreg=$1.tempreg;
+									
 									$$.countor=0;
 
 
@@ -1301,12 +1119,8 @@ CAND : CAND AND CNOT  			{
 									if($1.countand==0)
 									{
 										$$.countand=1;
-										int gettemp;
-									
-										char printer[1000];
 										
-
-										int temp2=$1.tempreg;
+										
 										if(!strcmp($1.type,"float"))
 										{
 											
@@ -1319,7 +1133,7 @@ CAND : CAND AND CNOT  			{
 										$1.bpcount=0;
 										$1.bplist[$1.bpcount++]=nextquad;
 										
-										$1.tempreg=gettemp;
+										
 									}
 									int getcase = GiveType($1.type,$3.type);
 									if(getcase==0)
@@ -1328,8 +1142,6 @@ CAND : CAND AND CNOT  			{
 										strcpy($$.type,"int");
 									$$.caseallow=$1.caseallow && $3.caseallow;
 
-									char printer[1000];
-									int temp2=$3.tempreg;
 									if(!strcmp($3.type,"float"))
 									{
 										
@@ -1343,8 +1155,6 @@ CAND : CAND AND CNOT  			{
 									}
 									$$.bplist[$$.bpcount++]=nextquad;
 
-								
-									$$.tempreg=$1.tempreg;
 
 									
 
@@ -1353,7 +1163,7 @@ CAND : CAND AND CNOT  			{
 									$$.bpcount=0;
 									strcpy($$.type,$1.type);
 									$$.caseallow=$1.caseallow;
-									$$.tempreg=$1.tempreg;
+									
 									$$.countand=0;
 
 
@@ -1362,7 +1172,7 @@ CAND : CAND AND CNOT  			{
 CNOT : ECOMP  					{
 									strcpy($$.type,$1.type);
 									$$.caseallow=$1.caseallow;
-									$$.tempreg=$1.tempreg;
+								
 
 								
 								}
@@ -1373,18 +1183,12 @@ CNOT : ECOMP  					{
 									strcpy($$.type,"int");
 									$$.caseallow=$2.caseallow;
 
-									int gettemp;
 								
-									char printer[1000];
-									
-									int temp2=$2.tempreg;
 									if(!strcmp($2.type,"float"))
 									{
 										
 									}
 
-									
-									$$.tempreg=gettemp;
 								}
 		;
 ECOMP : ECOMP LT E              {
@@ -1394,28 +1198,28 @@ ECOMP : ECOMP LT E              {
 									else
 										strcpy($$.type,"int");
 									$$.caseallow=$1.caseallow && $3.caseallow;
-									int gettemp;
+								
 									if(getcase==1)
 									{
 										if(!strcmp($1.type,"int"))
 										{
-											int gettemp2;
+											
 										
-											char printer[1000];
+											
 											
 											
 											
 										}
 										else if(!strcmp($3.type,"int"))
 										{
-											int gettemp2;
 											
-											char printer[1000];
+											
+											
 										
 										}
 										else
 										{
-											char printer[1000];
+											
 											
 										}
 										
@@ -1425,10 +1229,9 @@ ECOMP : ECOMP LT E              {
 									else if(getcase==2)
 									{
 											
-											char printer[1000];
+											
 											
 									}
-									$$.tempreg=gettemp;
 								}
 		| ECOMP LTE E  			{
 									int getcase = GiveType($1.type,$3.type);
@@ -1443,23 +1246,20 @@ ECOMP : ECOMP LT E              {
 									{
 										if(!strcmp($1.type,"int"))
 										{
-											int gettemp2;
 											
-											char printer[1000];
+											
+											
 											
 									
 										}
 										else if(!strcmp($3.type,"int"))
 										{
-											int gettemp2;
-											
-											char printer[1000];
 											
 										
 										}
 										else
 										{
-											char printer[1000];
+											
 											
 										
 										}
@@ -1470,10 +1270,10 @@ ECOMP : ECOMP LT E              {
 									else if(getcase==2)
 									{
 											
-											char printer[1000];
+											
 											
 									}
-									$$.tempreg=gettemp;
+									
 								
 								}
 		| ECOMP GT E 			{
@@ -1511,7 +1311,7 @@ ECOMP : ECOMP LT E              {
 											
 											
 									}
-									$$.tempreg=gettemp;
+									
 								
 								}
 		| ECOMP GTE E           {
@@ -1545,7 +1345,7 @@ ECOMP : ECOMP LT E              {
 									{
 											
 									}
-									$$.tempreg=gettemp;
+									
 								
 								}
 		| ECOMP NEQ E           {
@@ -1579,8 +1379,7 @@ ECOMP : ECOMP LT E              {
 									{
 										
 									}
-									$$.tempreg=gettemp;
-
+									
 								}
 		| ECOMP EQEQ E          {
 									int getcase = GiveType($1.type,$3.type);
@@ -1613,12 +1412,12 @@ ECOMP : ECOMP LT E              {
 									{
 											
 									}
-									$$.tempreg=gettemp;
+									
 
 								}
 		| E 					{
 									strcpy($$.type,$1.type);
-									$$.tempreg=$1.tempreg;
+									
 									$$.caseallow=$1.caseallow;
 
 								}
@@ -1664,7 +1463,7 @@ E : E PLUS T                    {
 										
 
 									}
-									$$.tempreg = gettemp;
+									
 									$$.caseallow=$1.caseallow && $3.caseallow;
 
 
@@ -1699,7 +1498,7 @@ E : E PLUS T                    {
 										// C++ Make the floats as axis points
 									}
 									strcpy($$.type,"point");
-									$$.tempreg = gettemp;
+									
 									$$.caseallow=$1.caseallow && $3.caseallow;
 								}
 	| E MINUS T 				{
@@ -1743,20 +1542,20 @@ E : E PLUS T                    {
 										
 
 									}
-									$$.tempreg = gettemp;
+									
 									$$.caseallow=$1.caseallow && $3.caseallow;
 
 
 								}
 	| T 						{
 									strcpy($$.type,$1.type);
-									$$.tempreg=$1.tempreg;
+									
 									$$.caseallow=$1.caseallow;
 
 								}
 	;
 T : T MULT F 					{
-									int gettemp;
+									
 									
 									int getcase = GiveType($1.type,$3.type);
 									if(getcase==0)
@@ -1785,7 +1584,7 @@ T : T MULT F 					{
 									
 
 									}
-									$$.tempreg = gettemp;
+								
 									$$.caseallow=$1.caseallow && $3.caseallow;
 
 									
@@ -1794,7 +1593,7 @@ T : T MULT F 					{
 
 								}
 	| T DIV F                   {
-									int gettemp;
+									
 									
 									int getcase = GiveType($1.type,$3.type);
 									if(getcase==0)
@@ -1823,13 +1622,13 @@ T : T MULT F 					{
 										
 
 									}
-									$$.tempreg = gettemp;
+									
 									$$.caseallow=$1.caseallow && $3.caseallow;
 
 
 								}
 	| T MOD F 					{
-									int gettemp;
+								
 									
 									int getcase = GiveType($1.type,$3.type);
 									if(getcase==0)
@@ -1858,14 +1657,14 @@ T : T MULT F 					{
 										
 
 									}
-									$$.tempreg = gettemp;
+								
 									$$.caseallow=$1.caseallow && $3.caseallow;
 
 								}
 
 	| F 						{
 									strcpy($$.type,$1.type);
-									$$.tempreg=$1.tempreg;
+							
 									$$.caseallow=$1.caseallow;
 
 
@@ -1941,7 +1740,7 @@ F : ID 							{
 													
 												}
 										}
-										$$.tempreg=gettemp;
+										
 
 									}
 									$$.caseallow=false;
@@ -1974,7 +1773,6 @@ F : ID 							{
 										strcpy($$.type,"int");
 										
 									}
-									$$.tempreg=gettemp;
 
 									$$.caseallow=true;
 
@@ -1982,12 +1780,8 @@ F : ID 							{
 								}
 	| FUNC_CALL 				{
 									strcpy($$.type,$1.type);
-									$$.tempreg=$1.tempreg;
 
-									if($$.tempreg==-1)
-									{
-										CallError("Void Function does not return anything.");
-									}
+								
 									$$.caseallow=false;
 
 
@@ -1995,7 +1789,7 @@ F : ID 							{
 								}     
 	| OPT COR CPT 				{
 									strcpy($$.type,$2.type);
-									$$.tempreg=$2.tempreg;
+									
 
 									$$.caseallow=$2.caseallow;
 									
@@ -2003,8 +1797,8 @@ F : ID 							{
 
 								}
 	| ARRF  					{
-									int tempreg=-2;
-									char printer[1000];
+								
+									
 
 									if($1.arr!=-1 && $1.ind!=-1)
 									{
@@ -2018,7 +1812,7 @@ F : ID 							{
 										}
 									}
 									strcpy($$.type,$1.type);
-									$$.tempreg=tempreg;
+								
 									$$.caseallow=false;
 
 								}
@@ -2112,7 +1906,6 @@ ARRFLIST : ARRFLIST OSQ NUM CSQ     {
 										{
 											$$.bplist[$$.bpcount++]=$1.bplist[i];
 										}
-										$$.bplist[$$.bpcount++]=$3.tempreg;
 										call_array_nums[can] = atoi($3.vali);
 										can = can + 1;
 									}
@@ -2124,7 +1917,7 @@ ARRFLIST : ARRFLIST OSQ NUM CSQ     {
 										}
 										$$.bpcount=0;
 
-										$$.bplist[$$.bpcount++]=$2.tempreg;
+										
 
 										call_array_nums[can] = atoi($2.vali);
 										can = can + 1;
@@ -2352,7 +2145,7 @@ int main(int argc, char const * argv[])
 	char nline[1000];
 	
 	bool app=true;
-	char printer[1000];
+	
 	while(fgets(line,sizeof(line),fil))
 	{
 		if(isFtype(line,strlen(line)))
