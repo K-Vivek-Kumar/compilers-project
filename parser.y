@@ -426,7 +426,6 @@ RETURN : RET           	{
 								int temp2=$2.tempreg;
 								if(!strcmp($2.type,"int"))
 								{
-									temp2=newfloat();
 									
 								}
 								
@@ -468,13 +467,11 @@ FUNC_CALL : IDTEMP OPT PARAMLIST CPT {
 										if(callfuncindex!=-1)
 										{
 										if(!strcmp(functable[callfuncindex].type,"int"))
-										{	
-											gettemp=newint();
+										{
 											
 										}
 										else if(!strcmp(functable[callfuncindex].type,"float"))
 										{
-											gettemp=newfloat();
 											
 										}
 										else
@@ -739,7 +736,6 @@ IFEXP : IFS OPTS COR CPTS  						{
 									int temp2=$3.tempreg;
 									if(!strcmp($3.type,"float"))
 									{
-										temp2=newint();
 									
 									}
 
@@ -1260,8 +1256,7 @@ COR	: COR OR CAND               {
 										
 										$1.bpcount=0;
 										$1.bplist[$1.bpcount++]=nextquad;
-										
-										$1.tempreg=gettemp;
+							
 									}
 									int getcase = GiveType($1.type,$3.type);
 									if(getcase==0)
@@ -2070,9 +2065,6 @@ ARRF : PARROW ID ARRFLIST 				{
 													
 												}
 
-
-												$$.arr=getarr;
-												$$.ind=getindex;
 												strcpy($$.type,functable[actfuncindex].vartable[find].vartype);
 											}	
 										}
@@ -2097,9 +2089,6 @@ ARRF : PARROW ID ARRFLIST 				{
 												{
 													
 												}
-
-												$$.arr=getarr;
-												$$.ind=getindex;
 												strcpy($$.type,functable[0].vartable[gfind].vartype);
 											}	
 										}
