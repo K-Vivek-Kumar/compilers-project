@@ -11,6 +11,7 @@ int y = 1;
 FILE *outFile;
 int k = 0;
 int inside = 0;
+char current_id[1000];
 %}
 
 sp [ ]*
@@ -22,15 +23,6 @@ num {nnum}|{pnum}
 
 %%
 "~".*[\n]   { /* Ignore comments */ lines++;}
-"@g2d"		{
-	if(inside != 0){
-		printf("Only functions have environments!: %d\n", lines);
-		return 0;
-	} else {
-
-	return DEFENV;
-	}
-}
 "@point" {
     if (inside != 0) {
         fprintf(outFile, "points.emplace_back(x, y);\n");
@@ -58,6 +50,8 @@ num {nnum}|{pnum}
 "@graph" {
     if (inside != 0) {
         fprintf(outFile, "generatePythonScript(points, lines, polygons);\n");
+        fprintf(outFile, "cout << \"Enter any key for graph generation...\";\n");
+        fprintf(outFile, "cin.get();\n");
         fprintf(outFile, "points.clear();\n");
         fprintf(outFile, "lines.clear();\n");
         fprintf(outFile, "polygons.clear();\n");
@@ -102,6 +96,7 @@ num {nnum}|{pnum}
 	if (strcmp(input, "y") == 0) {
 		fprintf(stderr, "Warning: Identifier 'y' is used as a graph buffer.\n");
 	}
+    strcpy(current_id, yytext);
 	fprintf(outFile, "%s", input); return ID;
 }
 {num} { 
@@ -168,8 +163,6 @@ int yywrap(void) {
 
 void despace(char target[], char input[], int l) {
     int start = 0, end = l - 1;
-    while (input[start] == ' ' || input[start] == '\t') start++;
-    while (input[end] == ' ' || input[end] == '\t') end--;
     int y = 0;
     for (int i = start; i <= end; ++i) {
         target[y++] = input[i];
