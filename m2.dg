@@ -1,0 +1,31 @@
+int=>main(){
+    int=>i; ~ This is our y
+    int=>j; ~ This is our x
+    int=>prev;
+    int=>current;
+    int=>temp;
+    
+    i = 0;
+    j = 0;
+    prev = 0;
+    current = 1;
+
+    loop(i < 20){
+        y = i;
+        x = j;
+        @point
+
+        temp = current;
+        current = current + prev;
+        prev = temp;
+        y =current;
+        x = prev;
+        @line
+        i = i + 1;
+        j = current;
+    }
+
+    @graph
+    @view
+    return 0;
+}
