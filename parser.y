@@ -91,7 +91,6 @@ int totvars=0;
 %token GTE
 %token EQEQ
 %token NEQ
-%token DEFENV
 
 %token PLUS
 %token MINUS
@@ -155,11 +154,11 @@ INPUTGLOBAL : MGL GLIST NGL INPUT
 				| NGL INPUT
 				;
 
-NGL    : ENVS {
+NGL    : {
 			actfuncindex=1;
 		 }
 		;
- MGL  : {
+MGL  : {
 			strcpy(functable[0].name,"global");
 			strcpy(functable[0].type,"int");
 		}
@@ -188,12 +187,6 @@ FUNC_DECL : FUNC_HEAD BODY {
 				| error SC  { yyerrok;}
 
 		    ;
-
-ENVS:	{
-	CallWarning("You forgot to set an environment.\nDefault as 2-Dimensional\nAdd `@g2d` for removing this warning");
-}
-	| DEFENV
-	;
 FUNC_HEAD : RESULT_ID OPT DECLISTE CPT  {
 										
 										globallevel++;	
@@ -203,10 +196,11 @@ FUNC_HEAD : RESULT_ID OPT DECLISTE CPT  {
 RESULT_ID : RESULT ID { functable[actfuncindex].paramcount=0;
 						functable[actfuncindex].varcount=0;
 						globallevel++;
-						strcpy(functable[actfuncindex].name,$2.vali);
+						strcpy(functable[actfuncindex].name,current_id);
+						
 
 						char printer[1000];
-						snprintf(printer,999,"func begin %s",$2.vali);
+						snprintf(printer,999,"func begin %s",current_id);
 						GenQuad(printer);
 
 					  }
@@ -222,17 +216,17 @@ DECLIST : DECLIST COMMA DEC
 			;
 DEC : TYPE ID 				{
 								int finder;
-								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$2.vali); 
+								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,current_id); 
 								if(finder!=-1)
 								{
 									char printer[1000];
-									snprintf(printer,999,"Parameter with name %s already declared.",$2.vali);
+									snprintf(printer,999,"Parameter with name %s already declared.", current_id);
 									CallError(printer);
 								}
 								else
 								{
 									struct varrecord new_record;
-									strcpy(new_record.varname,$2.vali);
+									strcpy(new_record.varname,current_id);
 									strcpy(new_record.vartype,$1.type);
 									new_record.tag=false;
 									new_record.level = globallevel;
@@ -277,9 +271,10 @@ DEC : TYPE ID 				{
 								}	
 								}
 		;
-ARRFUNC : ID LISTFUNC     {strcpy($$.vali,$1.vali);
+ARRFUNC : ID LISTFUNC     {strcpy($$.vali,current_id);
 							$$.counter=$2.counter;}
 		;
+
 
 LISTFUNC : LISTFUNC OSQ CSQ  {$$.counter=$1.counter+1;}
 			| OSQ CSQ     {$$.counter=1;}
@@ -524,7 +519,7 @@ IDTEMP : ID 				{
 								int i=0;
 								for(i=0;i<actfuncindex+1;i++)
 								{
-									if(!strcmp(functable[i].name,$1.vali))
+									if(!strcmp(functable[i].name, current_id))
 									{
 											get=i;
 											break;
@@ -540,7 +535,7 @@ IDTEMP : ID 				{
 								{
 									callfuncindex = get;
 								}
-								strcpy($$.vali,$1.vali);
+								strcpy($$.vali, current_id);
 	
 							}
 		;
@@ -861,30 +856,30 @@ ARRS : ARR
 ARR : ID BRLIST                 {
 				int finder;
 				int checker;
-				finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$1.vali); 
-				checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
+				finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,current_id); 
+				checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,current_id);
 				if(finder!=-1 && globallevel==2)
 				{
 					char printer[1000];
-					snprintf(printer,999,"Parameter with name %s already exists",$1.vali);
+					snprintf(printer,999,"Parameter with name %s already exists",current_id);
 					CallError(printer);
 				}
 				else if(checker!=-1 && functable[actfuncindex].vartable[checker].level==globallevel)
 				{
 					char printer[1000];
-					snprintf(printer,999,"Variable with name %s already exists in the current scope.",$1.vali);
+					snprintf(printer,999,"Variable with name %s already exists in the current scope.",current_id);
 					CallError(printer);
 				}
 				else
 				{
-					strcpy(functable[actfuncindex].vartable[functable[actfuncindex].varcount].varname,$1.vali);
+					strcpy(functable[actfuncindex].vartable[functable[actfuncindex].varcount].varname, current_id);
 					strcpy(functable[actfuncindex].vartable[functable[actfuncindex].varcount].vartype,"-1");	
 					functable[actfuncindex].vartable[functable[actfuncindex].varcount].tag=true;
 					functable[actfuncindex].vartable[functable[actfuncindex].varcount].level=globallevel;
 					functable[actfuncindex].vartable[functable[actfuncindex].varcount].IsArr=true;
 
 					char finalname[1000];
-					snprintf(finalname,999,"%s_%d_%s",$1.vali,globallevel,functable[actfuncindex].name);
+					snprintf(finalname,999,"%s_%d_%s",current_id,globallevel,functable[actfuncindex].name);
 					strcpy(vars[totvars],finalname);
 					strcpy(types[totvars],functable[actfuncindex].vartable[functable[actfuncindex].varcount].vartype);
 
@@ -968,24 +963,24 @@ BRLIST : BRLIST OSQ NUM CSQ     {
 IDS : ID 	{
 				int finder;
 				int checker;
-				finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$1.vali); 
-				checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
+				finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount, current_id); 
+				checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount, current_id);
 				if(finder!=-1 && globallevel==2)
 				{
 					char printer[1000];
-					snprintf(printer,999,"Parameter with name %s already exists",$1.vali);
+					snprintf(printer,999,"Parameter with name %s already exists", current_id);
 					CallError(printer);
 				}
 				else if(checker!=-1 && functable[actfuncindex].vartable[checker].level==globallevel)
 				{
 					char printer[1000];
-					snprintf(printer,999,"Variable with name %s already exists in the current scope.",$1.vali);
+					snprintf(printer,999,"Variable with name %s already exists in the current scope.", current_id);
 					CallError(printer);
 				}
 				else
 				{
 					struct varrecord new_record;
-					strcpy(new_record.varname,$1.vali);
+					strcpy(new_record.varname, current_id);
 					strcpy(new_record.vartype,"-1");
 					new_record.tag=true;
 					new_record.level = globallevel;
@@ -1014,14 +1009,14 @@ FORASSIGN : ID EQ COR       {
 																backpatch($3.bplist,$3.bpcount,nextquad);
 								int finder;
 								int checker,gchecker;
-								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$1.vali); 
-								checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
-								gchecker = InArr(functable[0].vartable,functable[0].varcount,$1.vali);
+								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,current_id); 
+								checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,current_id);
+								gchecker = InArr(functable[0].vartable,functable[0].varcount,current_id);
 
 								if(checker==-1 && finder==-1 && gchecker==-1)
 								{
 									char printer[1000];
-									snprintf(printer,999,"No such variable called %s exists",$1.vali);
+									snprintf(printer,999,"No such variable called %s exists",current_id);
 									CallError(printer);
 								}
 								if(checker!=-1)
@@ -1179,14 +1174,14 @@ ASSIGN : ID EQ COR SC       {
 																backpatch($3.bplist,$3.bpcount,nextquad);
 								int finder;
 								int checker,gchecker;
-								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$1.vali); 
-								checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
-								gchecker = InArr(functable[0].vartable,functable[0].varcount,$1.vali);
+								finder = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,current_id); 
+								checker = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,current_id);
+								gchecker = InArr(functable[0].vartable,functable[0].varcount,current_id);
 
 								if(checker==-1 && finder==-1 && gchecker==-1)
 								{
 									char printer[1000];
-									snprintf(printer,999,"No such variable called %s exists",$1.vali);
+									snprintf(printer,999,"No such variable called %s exists",current_id);
 									CallError(printer);
 								}
 								if(checker!=-1)
@@ -2443,14 +2438,14 @@ T : T MULT F 					{
 								}
 	;
 F : ID 							{
-									int find = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
-									int pfind = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,$1.vali);
-									int gfind = InArr(functable[0].vartable,functable[0].varcount,$1.vali);
+									int find = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,current_id);
+									int pfind = InArr(functable[actfuncindex].paramtable,functable[actfuncindex].paramcount,current_id);
+									int gfind = InArr(functable[0].vartable,functable[0].varcount,current_id);
 
 									if(find==-1 && pfind==-1 && gfind==-1)
 									{
 										char printer1[1000];
-										snprintf(printer1,999,"No such variable called %s exists",$1.vali);
+										snprintf(printer1,999,"No such variable called %s exists",current_id);
 										CallError(printer1);
 										strcpy($$.type,"errortype");
 
@@ -2641,13 +2636,13 @@ ARRF : ID ARRFLIST 				{
 									strcpy($$.type,"errortype");
 
 
-									int find = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,$1.vali);
-									int gfind = InArr(functable[0].vartable,functable[0].varcount,$1.vali);
+									int find = InArr(functable[actfuncindex].vartable,functable[actfuncindex].varcount,current_id);
+									int gfind = InArr(functable[0].vartable,functable[0].varcount,current_id);
 
 									if(find==-1 && gfind==-1)
 									{
 										char printer1[1000];
-										snprintf(printer1,999,"No such variable called %s exists",$1.vali);
+										snprintf(printer1,999,"No such variable called %s exists",current_id);
 										CallError(printer1);
 										strcpy($$.type,"errortype");
 
