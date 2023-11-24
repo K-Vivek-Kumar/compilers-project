@@ -3,235 +3,306 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+
+
+
 %}
 
-%start Program
+%start	START
 
-%token SELECT PRINT INT FLT ID FIVESTAR SC SP COMMA COLON EQ OR AND NOT LT LTE GT GTE EQEQ NEQ PLUS MINUS MULT DIV MOD OPT CPT OCURLY CCURLY IF ELSE FORT WHILET VOID RET SWITCHT CASET BREAK DEFAULT CSQ OSQ NUM DOL POINT
 
-%%
+%token	SELECT
+%token	PRINT
+%token	INT
+%token	FLT
+%token	ID
 
-Program : GlobalInput
-        ;
+%token FIVESTAR
 
-GlobalInput : ModuleGlobalList FunctionList NestedGlobalInput
-            | NestedGlobalInput
-            ;
+%token 	SC
+%token 	SP
+%token COMMA
+%token COLON
 
-NestedGlobalInput : /* empty */
-                 ;
+%token EQ
+%token OR
+%token AND
+%token NOT
 
-ModuleGlobalList : ModuleGlobalList DOL VariableDeclaration
-                 | DOL VariableDeclaration
-                 ;
+%token LT
+%token LTE
+%token GT
+%token GTE
+%token EQEQ
+%token NEQ
 
-VariableDeclaration : TypeDecl ListOfIds SC
-                  | TypeDecl PointDecl SC
-                  ;
+%token PLUS
+%token MINUS
+%token MULT
+%token DIV
+%token MOD
 
-TypeDecl : INT
-         | FLT
-         ;
+%token OPT
+%token CPT
+%token OCURLY
+%token CCURLY
+%token IF
+%token ELSE
+%token FORT
+%token WHILET
+%token VOID
+%token RET
+%token SWITCHT
+%token CASET
+%token BREAK
+%token DEFAULT
 
-PointDecl : POINT ID EQ OPAREN NUM COMMA NUM CPAREN
-          ;
+%token CSQ
+%token OSQ
+%token NUM
+%token DOL
 
-ListOfIds : ListOfIds COMMA ID
-          | ID
-          ;
 
-FunctionList : FunctionDeclaration FunctionList
-             | /* empty */
-             ;
-
-FunctionDeclaration : FunctionHead FunctionBody
-                  | error SC
-                  ;
-
-FunctionHead : ReturnType ID OptionalParams CPT
-             ;
-
-ReturnType : INT
-          | FLT
-          | VOID
-          ;
-
-OptionalParams : ParamList
-               | /* empty */
-               ;
-
-ParamList : ParamList COMMA Parameter
-          | Parameter
-          ;
-
-Parameter : TypeDecl ArrayFunc
-          | ID ArrayFunc
-          ;
-
-ArrayFunc : ListFunc
-          | /* empty */
-          ;
-
-ListFunc : ListFunc OSQ CSQ
-         | OSQ CSQ
-         ;
-
-FunctionBody : OCURLY StatementList CCURLY
-             ;
-
-StatementList : StatementList Statement
-              | Statement
-              ;
-
-Statement : error SC
-          | VariableDeclaration
-          | Assignment SC
-          | IfElseStatement
-          | ForStatement
-          | WhileStatement
-          | IncrementLevelStatement FunctionBody
-          | FunctionCall SC
-          | ReturnStatement SC
-          | FIVESTAR
-          | SwitchStatement
-          | BREAK SC
-          | PrintStatement SC
-          | Expression SC
-          ;
-
-IfElseStatement : IfExpression FunctionBody
-               | IfExpression FunctionBody NIf ELSE MIf FunctionBody
-               ;
-
-NIf : /* empty */
-    ;
-
-MIf : /* empty */
-    ;
-
-IfExpression : IF OPT OCURLY CCURLY
-             ;
-
-ForStatement : ForExpression FunctionBody
-             ;
-
-ForExpression : FORT OPT Assignment MFor SC
-             ;
-
-MFor : /* empty */
-     ;
-
-WhileStatement : WhileExpression FunctionBody
-              ;
-
-WhileExpression : WHILET MWhile OPT OCURLY CCURLY
-               ;
-
-MWhile : /* empty */
-       ;
-
-IncrementLevelStatement : /* empty */
-                      ;
-
-ReturnStatement : RET OptionalReturn SC
-               ;
-
-OptionalReturn : RET
-              | RET OCURLY CCURLY
-              ;
-
-FunctionCall : ID OptionalParams CPT
-             ;
-
-Assignment : ID EQ OCURLY CCURLY
-           | ArrayFunc EQ OCURLY CCURLY
-           | PointDecl
-           | ID EQ Expression
-           | ArrayFunc EQ Expression
-           ;
-
-SwitchStatement : SWITCHET OCURLY CaseList Default SC CCURLY
-               ;
-
-SwitchExpression : SWITCHT OPT OCURLY CCURLY
-                ;
-
-CaseList : CaseList Case
-         | Case
-         ;
-
-Case : CaseTemp CMARK CaseBody
-     ;
-
-CaseTemp : CASET NCase OCURLY CCURLY
-        ;
-
-CaseBody : StatementList
-         ;
-
-NCase : /* empty */
-      ;
-
-Default : DEFAULT COLON CaseBody
-        | /* empty */
-        ;
-
-PrintStatement : PRINT OPT COR CPT SC
-              ;
-
-Expression : E
-          ;
-
-E : E PLUS T
-  | E MINUS T
-  | T
-  ;
-
-T : T MULT F
-  | T DIV F
-  | F
-  ;
-
-F : ID
-  | NUM
-  | OPT Expression CPT
-  | ARRF
-  ;
-
-ARRF : ID ARRFLIST
-     ;
-
-ARRFLIST : ARRFLIST OSQ Expression CSQ
-         | OSQ Expression CSQ
-         ;
-
-OPAREN : '('
-       ;
-
-CPAREN : ')'
-       ;
-
-OCURLY : '{'
-       ;
-
-CCURLY : '}'
-       ;
-
-COMMA : ','
-      ;
-
-COLON : ':'
-      ;
-
-EQ : '='
-   ;
-
-POINT : 'point'
-      ;
 
 %%
 
-int main(int argc, char const *argv[])
+START : INPUTGLOBAL
+		;
+
+INPUTGLOBAL : MGL GLIST NGL INPUT
+				| NGL INPUT
+				;
+
+NGL    : 
+		;
+MGL  :
+		 ;
+
+GLIST : GLIST DOL VAR_DECL
+		| DOL VAR_DECL
+		;
+
+INPUT : FUNC_DECL INPUT
+		| FUNC_DECL
+		;
+
+FUNC_DECL : FUNC_HEAD BODY 
+				| error SC 
+
+		    ;
+FUNC_HEAD : RESULT_ID OPT DECLISTE CPT  
+			;
+RESULT_ID : RESULT ID 
+			;
+RESULT : INT      
+		| FLT	  
+		| VOID    
+		;
+DECLISTE : DECLIST
+		| ;
+DECLIST : DECLIST COMMA DEC
+			| DEC
+			;
+DEC : TYPE ID 				
+		;
+	| TYPE ARRFUNC 					
+		;
+ARRFUNC : ID LISTFUNC     
+		;
+
+
+LISTFUNC : LISTFUNC OSQ CSQ  
+			| OSQ CSQ    
+			;
+
+BODY : OCURLY SLIST CCURLY  
+		;
+SLIST : SLIST MSLIST S     
+		| S                
+		;
+MSLIST : 
+
+S:      error SC  
+		| VAR_DECL 
+		| ASSIGN 
+		| IFELSE 
+		| FOR    
+		| WHILE  
+		| INCRLEVEL BODY	
+		| FUNC_CALL SC 
+		| RETURN SC 
+		| FIVESTAR
+		| SWITCH 
+		| BREAK SC 		
+		| PRINT OPT COR CPT  SC     
+		; 
+
+INCRLEVEL :  
+			;
+RETURN : RET           
+		| RET COR   
+		;
+
+FUNC_CALL : IDTEMP OPT PARAMLIST CPT
+			;
+IDTEMP : ID 			
+		;
+PARAMLIST : PLIST 		
+			|			
+			;
+PLIST : PLIST COMMA COR 
+		| COR 						
+		;
+
+
+
+WHILE : WHILEXP BODY				
+		;
+WHILEXP : WHILET MWHILE OPT COR CPT 
+		;
+MWHILE :           
+		;
+
+
+
+FOR : FOREXP BODY 
+		;
+
+FOREXP : FORBACK1 FORBACK2 
+		;
+FORBACK1 : FORT OPT ASSIGN MFOR COR SC 
+ 		;
+
+FORBACK2: NFOR FORASSIGN CPT 
+		;
+MFOR : 
+	   ;
+NFOR : 
+		;
+
+
+
+
+IFELSE : IFEXP BODY                   
+		| IFEXP BODY NIF ELSE MIF BODY 
+		;
+NIF : 								
+	;
+MIF :  											
+		;
+IFEXP : IF OPT COR CPT  						
+		;
+
+
+
+
+VAR_DECL : TYPE L SC 				
+		;
+TYPE : INT 
+	| FLT  	
+	;
+L : L COMMA IDS
+	| IDS   
+	| L COMMA ARRS
+	| ARRS            
+	;
+
+ARRS : ARR
+		;
+
+ARR : ID BRLIST                
+		;
+BRLIST : BRLIST OSQ NUM CSQ    
+		| OSQ NUM CSQ 
+		;
+
+IDS : ID 	
+		;
+
+
+
+FORASSIGN : ID EQ COR      
+			| ARRF EQ COR   
+			;
+ASSIGN : ID EQ COR SC      
+		| ARRF EQ COR SC     
+		;
+
+COR	: COR OR CAND               
+		| CAND  				
+		;
+CAND : CAND AND CNOT  			
+		| CNOT                  
+		;
+CNOT : ECOMP  					
+		| NOT ECOMP 			
+		;
+ECOMP : ECOMP LT E              
+		| ECOMP LTE E  			
+		| ECOMP GT E 			
+		| ECOMP GTE E          
+		| ECOMP NEQ E          
+		| ECOMP EQEQ E          
+		| E 					
+		;
+E : E PLUS T                   
+	| E MINUS T 				
+	| T 						
+	;
+T : T MULT F 					
+	| T DIV F                 
+	| T MOD F 					
+	| F 						
+	;
+F : ID 													
+
+	| NUM						
+	| FUNC_CALL 				 
+	| OPT COR CPT 				
+	| ARRF  					
+	;
+
+
+ARRF : ID ARRFLIST 				
+		;
+
+ARRFLIST : ARRFLIST OSQ COR CSQ    
+		| OSQ COR CSQ 				
+		;
+
+SWITCH : SWITCHET OCURLY CASES CCURLY 		
+		; 
+
+SWITCHET : SWITCHT  OPT COR CPT 			
+			;
+CASES : CASELIST MCASE DEFAULTE 
+		| CASELIST				
+		;
+
+DEFAULTE : DEFAULT COLON SLIST  
+			;
+
+CASELIST : CASELIST CASE 
+		   | CASE     
+		   ;
+CASE : CASETEMP CMARK CBODY 							
+		;
+
+CMARK : ;
+CASETEMP : CASET NCASE COR COLON      					
+			;                
+CBODY : SLIST  
+		;
+MCASE :; 
+NCASE : ; 
+
+
+%%
+
+
+int main(int argc, char const * argv[])
 {
-    return 0;
+
+	return 0;
 }
