@@ -1,0 +1,21 @@
+int=>main(){
+    int=>x;
+    int=>y;
+    int=>arr[5][6];
+    @line
+    x = 1;
+    y = 0;
+    @polygon
+    x = 0;
+    y = 2;
+    @polygon
+    x = 2;
+    y = 4;
+    @polygon
+    x = 3;
+    y = 3;
+    @polygon
+    @graph
+    @view
+    return 0;
+}
