@@ -11,6 +11,7 @@ int y = 1;
 FILE *outFile;
 int k = 0;
 int inside = 0;
+char current_id[1000];
 %}
 
 sp [ ]*
@@ -21,16 +22,7 @@ nnum "-"{pnum}
 num {nnum}|{pnum}
 
 %%
-"~".[\n]   { / Ignore comments */ lines++;}
-"@g2d"		{
-	if(inside != 0){
-		printf("Only functions have environments!: %d\n", lines);
-		return 0;
-	} else {
-
-	return DEFENV;
-	}
-}
+"~".*[\n]   { /* Ignore comments */ lines++;}
 "@point" {
     if (inside != 0) {
         fprintf(outFile, "points.emplace_back(x, y);\n");
@@ -68,6 +60,10 @@ num {nnum}|{pnum}
 
 "@view" {
     if (inside != 0) {
+        // Give the python version here according to your installation. 
+        // If you have python3 instead of python, then replace python with python3.
+        fprintf(outFile, "cout << \"Press `Enter` key for graph generation...\";\n");
+        fprintf(outFile, "cin.get();\n");
         fprintf(outFile, "system(\"python svas.py\");\n");
     } else {
         printf("Line #%d: @view isn't callable on global scope.\n", lines);
@@ -77,12 +73,14 @@ num {nnum}|{pnum}
 {sp} {fprintf(outFile, " ");}
 {tbsp} {fprintf(outFile, "\t");}
 "="["="]*">"  {fprintf(outFile, " ");}
+"hello" {y = 1; return HELLO;}
 "int" {y = 1; fprintf(outFile, "%s", yytext); return INT;}
+"point" {y = 1; fprintf(outFile, "Point"); return POINT;}
 "real" {y = 1; fprintf(outFile, "float"); return FLT;}
 "void" {y = 1; fprintf(outFile, "%s", yytext); return VOID;}
 "show" {y = 1; fprintf(outFile, "cout << "); return PRINT;}
-"$$" {y = 1; fprintf(outFile, "%s", yytext); return DOL;}
-"***" {y = 1; return FIVESTAR;}
+"$$" {y = 1; return DOL;}
+"*****" {y = 1; return FIVESTAR;}
 "newline" {y = 1; k = k + 1;}
 
 "if" {y = 1; fprintf(outFile, "%s", yytext); return IF;}
@@ -102,6 +100,7 @@ num {nnum}|{pnum}
 	if (strcmp(input, "y") == 0) {
 		fprintf(stderr, "Warning: Identifier 'y' is used as a graph buffer.\n");
 	}
+    strcpy(current_id, yytext);
 	fprintf(outFile, "%s", input); return ID;
 }
 {num} { 
@@ -168,8 +167,6 @@ int yywrap(void) {
 
 void despace(char target[], char input[], int l) {
     int start = 0, end = l - 1;
-    while (input[start] == ' ' || input[start] == '\t') start++;
-    while (input[end] == ' ' || input[end] == '\t') end--;
     int y = 0;
     for (int i = start; i <= end; ++i) {
         target[y++] = input[i];
