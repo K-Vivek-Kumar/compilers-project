@@ -1,0 +1,35 @@
+void=====>main1(){
+    real a;
+    point b;
+    show(a);
+    newline
+    ***
+    int k;
+    a = b;
+    return;
+}
+void=====>main2(){
+    real a;
+    point b;
+    show(a);
+    newline
+    ***
+}
+int===>main3(){
+    real a;
+    point b;
+    show(a);
+    newline
+    ***
+    a = b;
+    return 0;
+}
+void=====>main(){
+    real a;
+    point b;
+    show(a);
+    newline
+    ***
+    a = b;
+    return;
+}
