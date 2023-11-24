@@ -2,10 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "parser.tab.h"
-#include "header.h"
 int lines;
-void despace(char target[], char input[], int l);
 void print_error();
 int y = 1;
 FILE *outFile;
