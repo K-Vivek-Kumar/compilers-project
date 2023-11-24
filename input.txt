@@ -1,0 +1,51 @@
+int=>main(){
+    int=>x;
+    x = 4;
+    ~ Hi this is Vivek.
+    @polygon
+    @point
+    @line
+    x = 7;
+    @polygon
+    @line
+    x = 12;
+    @polygon
+    @point
+    @line
+    is (x)
+    {
+    equals 1:
+        show(1);
+    equals newline 2:
+        show(2) newline ;
+    equals 3:
+        show(3);
+    default:
+        show(5);
+    }
+    if(x < 3){
+        *****
+    }
+    loop (3 >= x)
+    {
+        int=>j;
+        for (j = 0; j < 3; j = j + 1)
+        {
+            int=>y;
+            show(j);
+            if (j == 1)
+            {
+                *****
+            }
+        }
+        x = x + 1;
+        if (x == 2)
+        {
+            *****
+        }
+    }
+    @graph
+    @view
+    x = 9;
+    return 0;
+}

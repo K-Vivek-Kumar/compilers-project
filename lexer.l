@@ -21,7 +21,7 @@ nnum "-"{pnum}
 num {nnum}|{pnum}
 
 %%
-"~".[\n]   { / Ignore comments */ lines++;}
+"~".*[\n]   { /* Ignore comments */ lines++;}
 "@g2d"		{
 	if(inside != 0){
 		printf("Only functions have environments!: %d\n", lines);
@@ -81,8 +81,8 @@ num {nnum}|{pnum}
 "real" {y = 1; fprintf(outFile, "float"); return FLT;}
 "void" {y = 1; fprintf(outFile, "%s", yytext); return VOID;}
 "show" {y = 1; fprintf(outFile, "cout << "); return PRINT;}
-"$$" {y = 1; fprintf(outFile, "%s", yytext); return DOL;}
-"***" {y = 1; return FIVESTAR;}
+"$$" {y = 1; return DOL;}
+"*****" {y = 1; return FIVESTAR;}
 "newline" {y = 1; k = k + 1;}
 
 "if" {y = 1; fprintf(outFile, "%s", yytext); return IF;}

@@ -155,7 +155,7 @@ INPUTGLOBAL : MGL GLIST NGL INPUT
 				| NGL INPUT
 				;
 
-NGL    : {
+NGL    : ENVS {
 			actfuncindex=1;
 		 }
 		;
@@ -173,7 +173,7 @@ INPUT : FUNC_DECL INPUT
 		| FUNC_DECL
 		;
 
-FUNC_DECL : ENVS FUNC_HEAD BODY {
+FUNC_DECL : FUNC_HEAD BODY {
 							actfuncindex++;  
 							globallevel=0;
 							 char printer[1000];
@@ -1002,8 +1002,7 @@ IDS : ID 	{
 					totvars++;
 
 					strcpy(new_record.finalname,finalname);
-					functable[actfuncindex].vartable[functable[actfuncindex].varcount]=new_record;
-					functable[actfuncindex].varcount++;
+					functable[actfuncindex].vartable[functable[actfuncindex].varcount++]=new_record;
 
 				}
 			}
@@ -3036,7 +3035,6 @@ void CallError(char*s)
 	printf("%s\n",s);
 	fclose(outFile);
 	outFile = fopen("lexer.l", "r");
-	remove("svas.cpp");
 	success=false;
 }
 
