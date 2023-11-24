@@ -10,66 +10,81 @@ std::vector<std::pair<double, double>> polygons;
 int x = 0;
 int y = 0;
 
-int main(){
- int x;
- x = 4;
-  polygons.emplace_back(x, y);
+int main()
+{
+    int x;
+    x = 4;
+    int y;
+    y = 2;
+    points.emplace_back(x, y);
 
- points.emplace_back(x, y);
+    polygons.emplace_back(x, y);
 
- lines.emplace_back(x, y);
+    lines.emplace_back(x, y);
 
- x = 7;
- polygons.emplace_back(x, y);
+    x = 7;
+    y = 3;
+    polygons.emplace_back(x, y);
 
- lines.emplace_back(x, y);
+    lines.emplace_back(x, y);
 
- x = 12;
- polygons.emplace_back(x, y);
+    x = 12;
+    y = 6;
+    polygons.emplace_back(x, y);
 
- points.emplace_back(x, y);
+    points.emplace_back(x, y);
 
- lines.emplace_back(x, y);
+    lines.emplace_back(x, y);
 
- switch (x)
- {
- case 1:
- cout << (1);
- case  2:
- cout << (2)  ;cout << endl;cout << endl;
- case 3:
- cout << (3);
- default:
- cout << (5);
- }
- if(x < 3){
- 
- }
- while (3 >= x)
- {
- int j;
- for (j = 0; j < 3; j = j + 1)
- {
- int y;
- cout << (j);
- if (j == 1)
- {
- 
- }
- }
- x = x + 1;
- if (x == 2)
- {
- 
- }
- }
- generatePythonScript(points, lines, polygons);
-points.clear();
-lines.clear();
-polygons.clear();
+    while (3 >= x)
+    {
+        int j;
+        for (j = 0; j < 3; j = j + 1)
+        {
+            int y;
+            cout << (j);
+            if (j == 1)
+            {
+            }
+        }
+        x = x + 1;
+        if (x == 2)
+        {
+        }
+    }
+    generatePythonScript(points, lines, polygons);
+    cout << "Enter any key for graph generation...";
+    cin.get();
+    points.clear();
+    lines.clear();
+    polygons.clear();
 
- system("python svas.py");
+    system("python svas.py");
 
- x = 9;
- return 0;
+    x = 9;
+    y = 2;
+    polygons.emplace_back(x, y);
+
+    x = 3;
+    y = 4;
+    polygons.emplace_back(x, y);
+
+    x = 1;
+    y = 0;
+    polygons.emplace_back(x, y);
+
+    x = -1;
+    y = -2;
+    polygons.emplace_back(x, y);
+
+    generatePythonScript(points, lines, polygons);
+    cout << "Enter any key for graph generation...";
+    cin.get();
+    points.clear();
+    lines.clear();
+    polygons.clear();
+
+    system("python svas.py");
+
+    return 0;
 }

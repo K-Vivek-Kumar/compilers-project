@@ -3,19 +3,31 @@ int=>main(){
     x = 4;
     int=>y;
     y = 2;
-    @point
+    ~ Hi this is Vivek.
     @polygon
+    @point
     @line
     x = 7;
-    y = 3;
     @polygon
     @line
     x = 12;
-    y = 6;
     @polygon
     @point
-
     @line
+    is (x)
+    {
+    equals 1:
+        show(1);
+    equals newline 2:
+        show(2) newline ;
+    equals 3:
+        show(3);
+    default:
+        show(5);
+    }
+    if(x < 3){
+        *****
+    }
     loop (3 >= x)
     {
         int=>j;
@@ -36,5 +48,6 @@ int=>main(){
     }
     @graph
     @view
+    x = 9;
     return 0;
 }

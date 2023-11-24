@@ -59,30 +59,29 @@
      GTE = 275,
      EQEQ = 276,
      NEQ = 277,
-     DEFENV = 278,
-     PLUS = 279,
-     MINUS = 280,
-     MULT = 281,
-     DIV = 282,
-     MOD = 283,
-     OPT = 284,
-     CPT = 285,
-     OCURLY = 286,
-     CCURLY = 287,
-     IF = 288,
-     ELSE = 289,
-     FORT = 290,
-     WHILET = 291,
-     VOID = 292,
-     RET = 293,
-     SWITCHT = 294,
-     CASET = 295,
-     BREAK = 296,
-     DEFAULT = 297,
-     CSQ = 298,
-     OSQ = 299,
-     NUM = 300,
-     DOL = 301
+     PLUS = 278,
+     MINUS = 279,
+     MULT = 280,
+     DIV = 281,
+     MOD = 282,
+     OPT = 283,
+     CPT = 284,
+     OCURLY = 285,
+     CCURLY = 286,
+     IF = 287,
+     ELSE = 288,
+     FORT = 289,
+     WHILET = 290,
+     VOID = 291,
+     RET = 292,
+     SWITCHT = 293,
+     CASET = 294,
+     BREAK = 295,
+     DEFAULT = 296,
+     CSQ = 297,
+     OSQ = 298,
+     NUM = 299,
+     DOL = 300
    };
 #endif
 
@@ -93,7 +92,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 124 "parser.y"
+#line 123 "parser.y"
 
   struct attributes{
   	char vali[1000];
@@ -120,7 +119,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 124 "parser.tab.h"
+#line 123 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

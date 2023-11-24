@@ -1,77 +1,73 @@
-1: func begin 
+1: func begin main
 2: t0 = 
-3: _2_ = t0
+3: x_2_main = t0
 4: t0 = 
-5: _2_ = t0
+5: y_2_main = t0
 6: t0 = 
-7: _2_ = t0
-8: t0 = _2_
-9: t1 = 
-110: if(t0 != t1) goto 14   
-1: t1 = 
-12: print(t1)
-113: goto 16   
-4: t1 = 
-115: if(t0 != t1) goto 19   
-6: t1 = 
-17: print(t1)
-118: goto 21   
-9: t1 = 
-220: if(t0 != t1) goto 24   
-1: t1 = 
-22: print(t1)
-223: goto 24   
-4: t1 = 
-25: print(t1)
-26: t0 = _2_
-27: t1 = 
-28: t2 = 1
-29: if(t0 < t1) goto 31
-30: t2 = 0
-331: if(t2 == 0) goto 32   
-2: t0 = 
-33: t1 = _2_
-34: t2 = 1
-35: if(t0 >= t1) goto 37
-36: t2 = 0
-337: if(t2 == 0) goto 72   
+7: x_2_main = t0
 8: t0 = 
-39: _3_ = t0
-40: t0 = _3_
-41: t1 = 
-42: t2 = 1
-43: if(t0 < t1) goto 45
-44: t2 = 0
-445: if(t2 == 0) goto 61   
-46: goto 52   
-7: t0 = _3_
+9: y_2_main = t0
+10: t0 = 
+11: x_2_main = t0
+12: t0 = 
+13: y_2_main = t0
+14: t0 = 
+15: t1 = x_2_main
+16: t2 = 1
+17: if(t0 >= t1) goto 19
+18: t2 = 0
+119: if(t2 == 0) goto 54   
+0: t0 = 
+21: j_3_main = t0
+22: t0 = j_3_main
+23: t1 = 
+24: t2 = 1
+25: if(t0 < t1) goto 27
+26: t2 = 0
+227: if(t2 == 0) goto 43   
+28: goto 34   
+9: t0 = j_3_main
+30: t1 = 
+31: t2 = t0 + t1
+32: j_3_main = t2
+33: goto 22
+34: t0 = j_3_main
+35: print(t0)
+36: t0 = j_3_main
+37: t1 = 
+38: t2 = 1
+39: if(t0 == t1) goto 41
+40: t2 = 0
+441: if(t2 == 0) goto 29   
+
+goto _____
+43: t0 = x_2_main
+44: t1 = 
+45: t2 = t0 + t1
+46: x_2_main = t2
+47: t0 = x_2_main
 48: t1 = 
-49: t2 = t0 + t1
-50: _3_ = t2
-51: goto 40
-52: t0 = _4_
-53: print(t0)
-54: t0 = _4_
-55: t1 = 
-56: t2 = 1
-57: if(t0 == t1) goto 59
-58: t2 = 0
-559: if(t2 == 0) goto 47   
-__2_47   
-__
-61: t0 = _3_
-62: t1 = 
-63: t2 = t0 + t1
-64: _3_ = t2
-65: t0 = _3_
-66: t1 = 
-67: t2 = 1
-68: if(t0 == t1) goto 70
-669: t32   
-0: if(t2 == 0) goto _____
-71: goto 32
-72: t0 = 
-73: _2_ = t0
-74: t0 = 
-75: return t0
-76: func end
+49: t2 = 1
+50: if(t0 == t1) goto 52
+551: t14   
+2: if(t2 == 0) goto _____
+53: goto 14
+54: t0 = 
+55: x_2_main = t0
+56: t0 = 
+57: y_2_main = t0
+58: t0 = 
+59: x_2_main = t0
+60: t0 = 
+61: y_2_main = t0
+62: t0 = 
+63: x_2_main = t0
+64: t0 = 
+65: y_2_main = t0
+66: t0 = 
+67: x_2_main = t0
+68: t0 = 
+69: y_2_main = t0
+70: t0 = 
+71: return t0
+72: func end

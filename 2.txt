@@ -1,3 +1,4 @@
-_2_,int,0
-_3_,int,0
-_4_,int,0
+x_2_main,int,0
+y_2_main,int,0
+j_3_main,int,0
+y_4_main,int,0
