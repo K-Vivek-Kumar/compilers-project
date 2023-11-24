@@ -1,0 +1,2 @@
+i_2_main,int,0
+j_2_main,int,0

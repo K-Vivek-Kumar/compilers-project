@@ -1,0 +1,35 @@
+1: func begin vivek
+2: t0 = 
+3: return t0
+4: func end
+5: func begin main
+6: t0 = 
+7: i_2_main = t0
+8: t0 = 
+9: j_2_main = t0
+10: t0 = i_2_main
+11: t1 = 
+12: t2 = 1
+13: if(t0 < t1) goto 15
+14: t2 = 0
+115: if(t2 == 0) goto 29   
+6: t0 = i_2_main
+17: i_2_main = t0
+18: t0 = j_2_main
+19: j_2_main = t0
+20: t0 = i_2_main
+21: t1 = 
+22: t2 = t0 + t1
+23: i_2_main = t2
+24: t0 = i_2_main
+25: t1 = i_2_main
+26: t2 = t0 * t1
+27: i_2_main = t2
+28: goto 10
+29: t0 = 
+30: param t0
+31: call vivek,2
+32: refparam t0
+33: t1 = 
+34: return t1
+35: func end
