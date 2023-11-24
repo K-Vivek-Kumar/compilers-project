@@ -1,0 +1,28 @@
+int=>main(){
+    int=>i; ~ This is our y
+    int=>j; ~ This is our x
+    i = 0;
+    j = 0;
+    loop(i < 10){
+        y = i;
+        x = j;
+        @line
+        i = i + 1;
+        j = i * i;
+    }
+    int=>m;
+    int=>n;
+    m = 3;
+    n = 4;
+    x = m;
+    y = n;
+    @point
+    m = 9;
+    n = 8;
+    x = m;
+    y = n;
+    @point
+    @graph
+    @view
+    return 0;
+}
