@@ -1,0 +1,52 @@
+int=>main(){
+    int=>x; ~ X-coordinate
+    int=>y; ~ Y-coordinate
+
+    int => i;
+    i = 5;
+    x = i;
+    y = 5;
+
+    j = 5;
+    i = j+1;
+
+   @polygon
+
+    x = 10;
+    y = 10;
+
+   
+   @polygon
+
+    x = 10;
+    y = 5;
+
+    @polygon
+    x = 5;
+    y = 0;
+
+   @polygon
+
+     x = 5;
+    y = 5;
+
+    @polygon
+     
+    int=>k;
+    k = c - i;
+      x = 5;
+    y = 8;
+     @point
+    @line
+
+     x = 9;
+    y = 0;
+     @point
+    @line
+    ~ calling undeclaired function
+    isquare();
+
+    @graph
+    @view
+    return 0;
+}

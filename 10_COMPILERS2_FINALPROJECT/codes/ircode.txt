@@ -1,0 +1,34 @@
+1: func begin main
+2: t0 = 
+3: i_2_main = t0
+4: t0 = i_2_main
+5: i_2_main = t0
+6: t0 = 
+7: y_2_main = t0
+8: t0 = 
+9: x_2_main = t0
+10: t0 = 
+11: y_2_main = t0
+12: t0 = 
+13: x_2_main = t0
+14: t0 = 
+15: y_2_main = t0
+16: t0 = 
+17: x_2_main = t0
+18: t0 = 
+19: y_2_main = t0
+20: t0 = 
+21: x_2_main = t0
+22: t0 = 
+23: y_2_main = t0
+24: t0 = 
+25: x_2_main = t0
+26: t0 = 
+27: y_2_main = t0
+28: t0 = 
+29: x_2_main = t0
+30: t0 = 
+31: y_2_main = t0
+32: t0 = 
+33: return t0
+34: func end

@@ -1,0 +1,110 @@
+void=====>main1(){
+    ~ This is commented ~
+    real a;
+    int b;
+    show(a) newline;
+    *****
+    int k;
+    a = b;
+    return;
+}
+
+~ Some other function
+
+void=====>main2(){
+    real a;
+    int b;
+    b = 3;
+    a = 5 + b;
+
+    ~ Handling complex variables expressions
+    a = 5 - b * 3 + b % b - a / a;
+    show(a) newline;
+    *****
+}
+int===>main3(){
+    real a;
+    int b;
+    show(a);
+    newline
+    *****
+    a = b;
+    return 0;
+}
+
+~ This is a comment
+~ =======> arrow can be used for better code readability, just use arrow length greater than =>
+void=====>main4(){
+    real a;
+    a = 6;
+    int b;
+    int x;
+    x = 5 * 5 / 5;
+
+    ~ Implementing `cout` statement as in C++
+    ~ `newline` keyword to add a line break in console
+    show(a) newline;
+
+    ~ Eat five star! Do Nothing!
+    *****
+    a = 9;
+
+    ~ Function Call with hello
+    hello main2();
+
+    ~ Similar to switch statement in C
+    is (x){
+    equals 5:
+        show(x) newline;
+    default:
+        show(x - 5) newline;
+    }
+
+    ~ Similar to while loop in C
+    loop (x > 2) {
+        x = x - 1;
+        show(x) newline;
+    }
+
+    for(x = 0; x < 7; x = x + 1){
+        show(x) newline;
+    }
+    b = 9;
+    x = a;
+    y = b;
+}
+
+void=>main7(){
+    int=>i; ~ This is our y
+    int=>j; ~ This is our x
+    int=>prev;
+    int=>current;
+    int=>temp;
+    
+    i = 0;
+    j = 0;
+    prev = 0;
+    current = 1;
+
+    loop(i < 20){
+        y = i;
+        x = j;
+        
+        ~ Buffer plot as point
+        @point
+
+        ~ Buffer plot as line
+        @line
+        temp = current;
+        current = current + prev;
+        prev = temp;
+        i = i + 1;
+        j = current;
+    }
+    ~ For plotting and emptying the buffer datatypes
+    @graph
+
+    ~ For viewing the plot
+    @view
+    return 0;
+}

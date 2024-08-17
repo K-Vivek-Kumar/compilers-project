@@ -1,0 +1,316 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{datetime}
+\usepackage{lipsum}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{sectsty}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+
+\usepackage{listings}
+
+\lstdefinestyle{mystyle}{
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=10pt,
+    xrightmargin=5pt,
+    framexleftmargin=5pt,
+    framexrightmargin=5pt,
+    captionpos=b,
+    showspaces=false,
+    showstringspaces=false,
+}
+
+\lstset{style=mystyle}
+
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,
+    top=20mm,
+}
+
+\newdate{presentationdate}{24}{11}{2023}
+
+% Define colors
+\definecolor{darkblue}{RGB}{26,13,171}
+
+% Fancy header settings
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textcolor{darkblue}{\textbf{CS3423 - Compilers II}}}
+\lhead{\textcolor{darkblue}{\textbf{\today}}}
+\chead{\textcolor{darkblue}{\textbf{Compiler Project}}}
+\cfoot{\thepage}
+
+\allsectionsfont{\color{darkblue}}
+
+\titleformat{\section}[block]{\normalfont\Large\bfseries\color{darkblue}}{\thesection.}{1em}{}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries\color{darkblue}}{\thesubsection}{1em}{}
+
+\begin{document}
+
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{center}
+        \vspace*{1cm}
+        \Large \textcolor{darkblue}{\textbf{CS3423 - Compilers II}}\\
+        \hrulefill\\
+        \vspace{2cm}
+        \Huge \textcolor{darkblue}{\textbf{GD}}\\
+        \vspace{0.5cm}
+        \normalsize A detailed Overview of the GD Compiler project\\
+        \vspace{2cm}
+        \large \textcolor{darkblue}{\textbf{\displaydate{presentationdate}}}\\
+        \vspace{0.5cm}
+        \large \textcolor{darkblue}{\textbf{Team Number: 10}}\\
+        \vspace{1.5cm}
+        \begin{tabular}{l l}
+            \toprule
+            \textcolor{darkblue}{\textbf{Name}} & \textcolor{darkblue}{\textbf{Roll Number}} \\
+            \midrule
+            K Vivek Kumar & CS21BTECH11026 \\
+            Bhende Adarsh Suresh & CS21BTECH11008 \\
+            Jarupula Sai Kumar & CS21BTECH11023 \\
+            Pathlavath Shankar & CS21BTECH11064 \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+\section{Overview of the Problem Statement}
+The challenge at hand involves the development of a Dimensional Geometric Domain-Specific Programming language with a C syntax, coupled with integrated plotting capabilities using Python's matplotlib library. This unique programming paradigm introduces users to the world of 2D programming, providing an intuitive environment with familiar C-like syntax. The incorporation of plotting functionalities serves as an effective learning aid, making it easier for individuals to grasp programming concepts.
+
+The project draws inspiration from the concept of buffering, where pre-built data components known as buffer datatypes are utilized to seamlessly store plotting requirements. This approach enhances the understanding of core C++ programming principles, making the language accessible and user-friendly.
+
+\subsection{Importance of the Problem}
+The significance of addressing this problem lies in several key areas:
+
+\begin{enumerate}
+    \item \textbf{Educational Impact:} The project serves as an invaluable educational tool, offering a practical and hands-on approach to learning programming. With a syntax resembling C and integrated plotting features, it provides an ideal platform for beginners to gain a solid understanding of programming concepts.
+
+    \item \textbf{Bridging Theory and Practice:} By introducing buffer datatypes for storing plotting requirements, the project effectively bridges the gap between theoretical knowledge and practical implementation. Users can explore C++ programming concepts while gaining insights into efficient data storage mechanisms.
+
+    \item \textbf{Enhanced Learning Experience:} Integration with Python's matplotlib library allows users to visualize the real-time impact of their code. This visual context enhances the learning experience, making abstract concepts more tangible.
+
+    \item \textbf{Versatile Applications:} A Dimensional Geometric Domain-Specific Programming language has diverse applications. From educational purposes to scientific and engineering simulations, users can leverage this language for a wide range of projects, fostering creativity and innovation.
+
+    \item \textbf{Foundation for Further Exploration:} Proficiency in this language serves as a solid foundation for users to explore more complex programming languages and environments. The project acts as a stepping stone, empowering individuals for future endeavors in the dynamic field of programming and computational science.
+\end{enumerate}
+
+Traditional methods of tackling geometry and graph-based problems often involve manual calculations and translations into conventional programming languages, which can be cumbersome. The GD language aims to provide a more intuitive and efficient way to express and solve such problems.
+
+\section{Difficulties Faced During Implementation}
+The implementation of the GD compiler has posed several challenges. Some of the key difficulties encountered include:
+
+\begin{itemize}
+    \item Syntax Design: We wanted a simpler syntax but also wanted to keep it closer to C, hence we resembled ourselves to C++ and doing such resemblance and uniqueness caused in many issues like efficient translation.
+    
+    Issues involved in building switch and if-else statement syntax was the most difficult part which took approximately 40\% of the project time.
+    
+    \item Environment Handling: Implementing the environment declarations for different dimensions, such as 1D and 2D, required careful consideration.
+    
+    \item Optimizing Operations: Ensuring efficient translation of geometric concepts into executable instructions while optimizing each operation for performance.
+    
+    \item After numerous iterations, we successfully developed the syntax for assigning attributes and allocating a new function table row. This process posed a significant challenge, particularly because it involved delving into Yacc at a profound level for the first time. Addressing character arrays, structs, and array counts proved to be intricate tasks during this exploration.
+    
+    \item Another significant hurdle we faced was in the implementation of array calls and counts. This posed challenges in terms of managing function call stacks and ensuring proper execution flow.
+\end{itemize}
+
+\section{Running the Compiler on Test Cases}
+
+\subsection{Using Scripting Language}
+
+For a streamlined end-to-end compilation and execution process, a pre-written script is provided to compile and run the test cases. Ensure that the following dependencies are installed before proceeding:
+
+\subsubsection{Dependencies}
+\begin{itemize}
+    \item \texttt{bison:} The Yacc Compiler
+    \item \texttt{flex:} The Lex Compiler
+    \item \texttt{gcc:} The C Program Compiler
+    \item \texttt{g++:} The C++ Compiler
+    \item \texttt{python or python3:} Please adjust the command in the \texttt{lexer.l} file in the codes directory if you are using python3 instead of python. Navigate to line 67 of \texttt{lexer.l} and replace "python" with "python3."
+    \item \texttt{matplotlib library from python or python3:} Required for graph generation.
+\end{itemize}
+
+\subsubsection{Running on a Specific Test Case}
+
+To run the program on a particular test case, follow these steps:
+
+\begin{enumerate}
+    \item Download and unzip the file.
+    \item Open the directory containing the files.
+    \item Navigate to the \texttt{codes} directory.
+    \item Run any test case present in the \texttt{testcase} folder with the following commands:
+
+    \textbf{For Windows:}
+    \begin{verbatim}
+    $ .\gd.bat ../testcases/t4.txt
+    \end{verbatim}
+
+    \textbf{For Linux Systems:}
+    \begin{verbatim}
+    $ chmod +x gd.sh
+    $ ./gd.sh input.txt
+    \end{verbatim}
+\end{enumerate}
+
+\section{Pipeline Working on the Script}
+
+\subsection{Windows System}
+
+The following script runs the compiler on Windows:
+
+\subsubsection{Script}
+\begin{lstlisting}
+@echo off
+bison -d parser.y
+if errorlevel 1 (
+    echo Error: Bison compilation failed
+    exit /b 1
+)
+
+flex lexer.l
+if errorlevel 1 (
+    echo Error: Flex compilation failed
+    exit /b 1
+)
+
+gcc lex.yy.c parser.tab.c -o vwake
+if errorlevel 1 (
+    echo Error: Compilation failed
+    exit /b 1
+)
+
+.\vwake %1
+if errorlevel 1 (
+    echo Error: Execution failed
+    exit /b 1
+)
+
+g++ -c svas.cpp -o svas.o
+if errorlevel 1 (
+    echo Error: Compilation of svas.cpp failed
+    exit /b 1
+)
+
+g++ -c plotter.cpp -o svas_plotter.o
+if errorlevel 1 (
+    echo Error: Compilation of plotter.cpp failed
+    exit /b 1
+)
+
+g++ svas_plotter.o svas.o -o svas
+if errorlevel 1 (
+    echo Error: Linking failed! No Executable Generated.
+    exit /b 1
+)
+
+.\svas
+if errorlevel 1 (
+    echo Error: Execution of svas failed
+    exit /b 1
+)
+\end{lstlisting}
+
+\subsubsection{Explanation}
+The script follows a step-by-step process to compile and run the code on a Windows system:
+\begin{itemize}
+    \item It starts with the Bison compiler to generate the parser code, followed by the Flex compiler for the lexer code.
+    \item The generated codes are then compiled using the GNU Compiler Collection (GCC) to create the \texttt{vwake} executable.
+    \item The \texttt{vwake} executable is executed with specified test case inputs, and errors are handled appropriately.
+    \item The script then proceeds to compile \texttt{svas.cpp} and \texttt{plotter.cpp} files separately, linking them to create the \texttt{svas} executable.
+    \item Finally, the compiled \texttt{svas} executable is run.
+\end{itemize}
+
+\subsection{Linux System}
+
+The following script runs the compiler on Linux:
+
+\begin{lstlisting}[language=bash]
+#!/bin/bash
+
+bison -d parser.y
+if [ $? -ne 0 ]; then
+    echo "Error: Bison compilation failed"
+    exit 1
+fi
+
+flex lexer.l
+if [ $? -ne 0 ]; then
+    echo "Error: Flex compilation failed"
+    exit 1
+fi
+
+gcc lex.yy.c parser.tab.c -o vwake
+if [ $? -ne 0 ]; then
+    echo "Error: Compilation failed"
+    exit 1
+fi
+
+./vwake "$1"
+if [ $? -ne 0 ]; then
+    echo "Error: Execution failed"
+    exit 1
+fi
+
+g++ -c svas.cpp -o svas.o
+if [ $? -ne 0 ]; then
+    echo "Error: Compilation of svas.cpp failed"
+    exit 1
+fi
+
+g++ -c plotter.cpp -o svas_plotter.o
+if [ $? -ne 0 ]; then
+    echo "Error: Compilation of plotter.cpp failed"
+    exit 1
+fi
+
+g++ svas_plotter.o svas.o -o svas
+if [ $? -ne 0 ]; then
+    echo "Error: Linking failed! No Executable Generated."
+    exit 1
+fi
+
+./svas
+if [ $? -ne 0 ]; then
+    echo "Error: Execution of svas failed"
+    exit 1
+fi
+
+exit 0
+\end{lstlisting}
+
+\subsubsection{Explanation}
+The script for Linux follows a similar process as the Windows script:
+\begin{itemize}
+    \item It uses Bison and Flex to generate parser and lexer code, respectively.
+    \item It compiles the generated codes to create the \texttt{vwake} executable.
+    \item The \texttt{vwake} executable is executed with the provided command-line arguments.
+    \item Similar to the Windows script, the script then compiles \texttt{svas.cpp} and \texttt{plotter.cpp} files separately, linking them to create the \texttt{svas} executable.
+    \item Finally, the compiled \texttt{svas} executable is run.
+\end{itemize}
+
+\subsubsection{\texttt{plotter.cpp}}
+Compile the \texttt{plotter.cpp} file, which contains the implementation of the plotting functionality. The plotter is responsible for interpreting graphical instructions generated by the main program and producing visual representations of the data specified in the input code.
+
+The plotter leverages the Matplotlib library to create graphical elements, including points, lines, and shapes, on a coordinate system.
+
+The compilation of \texttt{plotter.cpp} results in an object file (\texttt{svas\_plotter.o}), which will be later linked with other object files to create the final executable.
+
+\textbf{Note:} Ensure that the necessary libraries are available and properly configured for the compilation of the \texttt{plotter.cpp} file.
+
+
+
+\end{document}

@@ -1,0 +1,36 @@
+void=====>main1(){
+    real a;
+    int b;
+    show(a);
+    newline
+    *****
+    int k;
+    a = b;
+    return;
+}
+void=====>main2(){
+    real a;
+    int b;
+    show(a);
+    newline
+    *****
+}
+int===>main3(){
+    real a;
+    int b;
+    show(a);
+    newline
+    *****
+    a = b;
+    return 0;
+}
+int=====>main(){
+    real a;
+    int b;
+    show(a);
+    newline
+    *****
+    a = b;
+    hello main2();
+    return 0;
+}
